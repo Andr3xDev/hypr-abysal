@@ -22,7 +22,6 @@ QtObject {
     signal calendarVisibilityChanged(bool visible)
 
     // ── Monitors ──────────────────────────────────────────
-    signal monitorProfileApplied(string profileId)
     signal monitorConnected(string monitorName)
     signal monitorDisconnected(string monitorName)
 }

@@ -44,7 +44,7 @@ MouseArea {
         id: _scaleAnimation
         target: root.target
         property: "scale"
-        duration: Theme.ThemeManager.motion.duration.fast
-        easing.type: Theme.ThemeManager.motion.easing.standard
+        duration: Theme.Tokens.motion.fast
+        easing.type: Theme.Tokens.motion.ease
     }
 }

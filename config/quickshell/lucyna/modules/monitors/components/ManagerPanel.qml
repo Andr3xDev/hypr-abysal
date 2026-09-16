@@ -46,10 +46,10 @@ Rectangle {
     signal deleteRequested(string id)
 
     // ── Appearance ────────────────────────────────────────
-    color:        Theme.ThemeManager.colors.surface.primary
-    radius:       Theme.ThemeManager.radius.md
+    color:        Theme.Tokens.color.bg
+    radius:       Theme.Tokens.radius.md
     border.width: 1
-    border.color: Theme.ThemeManager.colors.border
+    border.color: Theme.Tokens.color.border
 
     MouseArea { anchors.fill: parent }
 
@@ -73,13 +73,12 @@ Rectangle {
 
             Row {
                 anchors { right: parent.right; verticalCenter: parent.verticalCenter }
-                spacing: Theme.ThemeManager.spacing.sm
+                spacing: Theme.Tokens.space.sm
 
                 QsButton {
                     id:        _saveBtn
                     label:     "Save"
                     enabled:   root.activeProfileId !== ""
-                    opacity:   enabled ? 1.0 : 0.35
                     onClicked: root.saveLayoutRequested()
                 }
 

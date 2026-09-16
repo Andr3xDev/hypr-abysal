@@ -79,13 +79,13 @@ Item {
     Column {
         id: _mainCol
         anchors { top: parent.top; left: parent.left; right: parent.right; margins: 14 }
-        spacing:  Theme.ThemeManager.spacing.sm
+        spacing:  Theme.Tokens.space.sm
         visible:  root.monitor !== null
 
         // ── Header ────────────────────────────────────────
         Row {
             width:   parent.width
-            spacing: Theme.ThemeManager.spacing.sm
+            spacing: Theme.Tokens.space.sm
 
             QsText {
                 id:        _headerTitle
@@ -105,7 +105,7 @@ Item {
         Rectangle {
             width:  parent.width
             height: 1
-            color:  Theme.ThemeManager.colors.highlight.subtle
+            color:  Theme.Tokens.color.bgElevated
         }
 
         // ── Alias ─────────────────────────────────────────
@@ -183,7 +183,7 @@ Item {
         LabelRow {
             label: "Scale"
             Row {
-                spacing: Theme.ThemeManager.spacing.xs
+                spacing: Theme.Tokens.space.xs
                 enabled: root._active
 
                 QsButton {
@@ -252,7 +252,7 @@ Item {
         LabelRow {
             label: "Rotation"
             Row {
-                spacing: Theme.ThemeManager.spacing.xs
+                spacing: Theme.Tokens.space.xs
                 enabled: root._active
                 Repeater {
                     model: [{ label: "0°", value: 0 }, { label: "90°", value: 1 },
@@ -261,24 +261,24 @@ Item {
                         property bool isActive: root.monitor && root.monitor.transform === modelData.value
                         width:        36
                         height:       24
-                        radius:       Theme.ThemeManager.radius.md
+                        radius:       Theme.Tokens.radius.md
                         color:        isActive
-                                          ? Theme.ThemeManager.colors.accent
-                                          : Theme.ThemeManager.colors.surface.secondary
+                                          ? Theme.Tokens.color.accent
+                                          : Theme.Tokens.color.bgElevated
                         border.width: 1
                         border.color: isActive
-                                          ? Theme.ThemeManager.colors.accent
-                                          : Theme.ThemeManager.colors.borderSubtle
+                                          ? Theme.Tokens.color.accent
+                                          : Theme.Tokens.color.border
 
-                        Behavior on color { ColorAnimation { duration: Theme.ThemeManager.motion.duration.fast } }
+                        Behavior on color { ColorAnimation { duration: Theme.Tokens.motion.fast } }
 
                         QsText {
                             anchors.centerIn: parent
                             text:  modelData.label
                             role:  "caption"
                             color: parent.isActive
-                                       ? Theme.ThemeManager.colors.surface.primary
-                                       : Theme.ThemeManager.colors.on.surface
+                                       ? Theme.Tokens.color.bg
+                                       : Theme.Tokens.color.textPrimary
                         }
                         MouseArea {
                             anchors.fill: parent
@@ -309,7 +309,7 @@ Item {
         LabelRow {
             label: "Position"
             Row {
-                spacing: Theme.ThemeManager.spacing.xs
+                spacing: Theme.Tokens.space.xs
                 enabled: root._active
 
                 StyledTextField {
@@ -387,17 +387,17 @@ Item {
             }
         }
 
-        color:                Theme.ThemeManager.colors.on.surface
-        font.pixelSize:       Theme.ThemeManager.typography.size.md
-        placeholderTextColor: Theme.ThemeManager.colors.on.surfaceMuted
+        color:                Theme.Tokens.color.textPrimary
+        font.pixelSize:       Theme.Tokens.text.md
+        placeholderTextColor: Theme.Tokens.color.textMuted
 
         background: Rectangle {
-            color:        Theme.ThemeManager.colors.surface.secondary
-            radius:       Theme.ThemeManager.radius.lg
+            color:        Theme.Tokens.color.bgElevated
+            radius:       Theme.Tokens.radius.lg
             border.width: 1
             border.color: parent.activeFocus
-                              ? Theme.ThemeManager.colors.accent
-                              : Theme.ThemeManager.colors.border
+                              ? Theme.Tokens.color.accent
+                              : Theme.Tokens.color.border
         }
     }
 
@@ -421,17 +421,18 @@ Item {
 
         implicitWidth:  36
         implicitHeight: 20
-        opacity:        toggle.active ? 1.0 : 0.4
 
         Rectangle {
             id: _track
             anchors.fill: parent
             radius:       height / 2
-            color:        toggle.checked
-                              ? Theme.ThemeManager.colors.accent
-                              : Theme.ThemeManager.colors.highlight.medium
+            color:        !toggle.active
+                              ? Theme.Tokens.color.bgElevated
+                              : toggle.checked
+                                  ? Theme.Tokens.color.accent
+                                  : Theme.Tokens.color.border
 
-            Behavior on color { ColorAnimation { duration: Theme.ThemeManager.motion.duration.fast } }
+            Behavior on color { ColorAnimation { duration: Theme.Tokens.motion.fast } }
 
             Rectangle {
                 id:     _thumb
@@ -440,12 +441,12 @@ Item {
                 radius: height / 2
                 anchors.verticalCenter: _track.verticalCenter
                 x:     toggle.checked ? _track.width - width - 2 : 2
-                color: toggle.checked
-                           ? Theme.ThemeManager.colors.surface.primary
-                           : Theme.ThemeManager.colors.on.surfaceMuted
+                color: (toggle.active && toggle.checked)
+                           ? Theme.Tokens.color.bg
+                           : Theme.Tokens.color.textMuted
 
-                Behavior on x     { NumberAnimation { duration: Theme.ThemeManager.motion.duration.fast; easing.type: Theme.ThemeManager.motion.easing.decelerate } }
-                Behavior on color { ColorAnimation  { duration: Theme.ThemeManager.motion.duration.fast } }
+                Behavior on x     { NumberAnimation { duration: Theme.Tokens.motion.fast; easing.type: Theme.Tokens.motion.easeOut } }
+                Behavior on color { ColorAnimation  { duration: Theme.Tokens.motion.fast } }
             }
         }
 

@@ -11,7 +11,6 @@ import "../infra"
     Pure CRUD over data/profiles.json. No matching logic (see ProfileMatcher).
 
     Public API:
-      findAll()                    → MonitorProfile[]
       save(profile)                → upserts by id, persists
       remove(id)                   → deletes by id, persists
       createFromCurrentState(name) → snapshots MonitorService.monitors as a new profile
@@ -96,10 +95,6 @@ QtObject {
     }
 
     // ── Public API ────────────────────────────────────────
-    function findAll() {
-        return [...profiles]
-    }
-
     function save(profile) {
         const idx = profiles.findIndex(p => p.id === profile.id)
         if (idx >= 0) {

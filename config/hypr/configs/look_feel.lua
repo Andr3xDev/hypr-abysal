@@ -39,7 +39,13 @@ hl.config({
             active_border   = theme.border_active,
             inactive_border = theme.border_inactive,
         },
-    }
+    },
+
+    master = {
+        mfact      = 0.6,
+        orientation = "left",
+        new_status = "slave",
+    },
 })
 
 
@@ -52,7 +58,7 @@ hl.config({
         rounding         = 6,
         dim_special      = 0.5,
         active_opacity   = 1,
-        inactive_opacity = theme.opacity,
+        inactive_opacity = 0.92,
 
         shadow = {
             range          = 20,
@@ -64,8 +70,8 @@ hl.config({
 
         blur = {
             enabled           = true,
-            size              = 3,
-            passes            = 3,
+            size              = 4,
+            passes            = 2,
             popups            = true,
             special           = false,
             ignore_opacity    = false,

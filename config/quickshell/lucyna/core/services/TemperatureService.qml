@@ -32,7 +32,7 @@ Singleton {
     // Get CPU temperature
     property Process _cpuProcess: Process {
         running: false
-        command: ["sh", "-c", "sensors | grep -Eo '\\+[0-9]+\\.[0-9]+°C' | head -n1 | grep -Eo '[0-9]+' | head -n1"]
+        command: ["sh", "-c", "sensors coretemp-isa-0000 2>/dev/null | grep 'Package id 0' | grep -Eo '[0-9]+\\.[0-9]+' | head -n1"]
 
         stdout: SplitParser {
             onRead: data => {

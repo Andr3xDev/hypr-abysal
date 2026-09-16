@@ -38,21 +38,21 @@ Rectangle {
     }
 
     // ── Appearance ───────────────────────────────────────
-    height:       44
-    color:        Theme.ThemeManager.colors.surface.secondary
-    radius:       Theme.ThemeManager.radius.lg
+    height:       Theme.Tokens.comp.clip.searchH
+    color:        Theme.Tokens.color.bgElevated
+    radius:       Theme.Tokens.radius.lg
     border.width: 1
     border.color: searchInput.activeFocus
-        ? Theme.ThemeManager.colors.accent
-        : Theme.ThemeManager.colors.border
+        ? Theme.Tokens.color.accent
+        : Theme.Tokens.color.border
 
     // Search icon
     Text {
         anchors { verticalCenter: parent.verticalCenter; left: parent.left; leftMargin: 10 }
         text:           " 󰅍 "
-        font.family:    Theme.ThemeManager.typography.family.icons
-        font.pixelSize: Theme.ThemeManager.typography.size.xl
-        color:          Theme.ThemeManager.colors.accent
+        font.family:    Theme.Tokens.text.iconFont
+        font.pixelSize: Theme.Tokens.text.xl
+        color:          Theme.Tokens.color.accent
     }
 
     // Search input
@@ -67,10 +67,10 @@ Rectangle {
             rightMargin: 44
         }
 
-        color:              Theme.ThemeManager.colors.on.surface
-        font.pixelSize:     Theme.ThemeManager.typography.size.lg
+        color:              Theme.Tokens.color.textPrimary
+        font.pixelSize:     Theme.Tokens.text.lg
         font.letterSpacing: 0.3
-        selectionColor:     Theme.ThemeManager.colors.accent
+        selectionColor:     Theme.Tokens.color.accent
         clip:               true
         focus:              true
 
@@ -101,22 +101,22 @@ Rectangle {
         width:  28
         height: 28
         anchors { right: parent.right; rightMargin: 8; verticalCenter: parent.verticalCenter }
-        radius: Theme.ThemeManager.radius.lg
+        radius: Theme.Tokens.radius.lg
 
         color: (_trashHover.containsMouse || root._confirmingClear)
-            ? Theme.ThemeManager.alpha(Theme.ThemeManager.colors.accent, 0.15)
-            : "transparent"
+            ? Theme.Tokens.color.accentSurface
+            : Theme.Tokens.color.bgElevated
 
-        Behavior on color { ColorAnimation { duration: Theme.ThemeManager.motion.duration.fast } }
+        Behavior on color { ColorAnimation { duration: Theme.Tokens.motion.fast } }
 
         Text {
             anchors.centerIn: parent
             text:           root._confirmingClear ? "󰄬" : "󰩺"
-            font.family:    Theme.ThemeManager.typography.family.icons
-            font.pixelSize: Theme.ThemeManager.typography.size.xl
-            color:          Theme.ThemeManager.colors.accent
+            font.family:    Theme.Tokens.text.iconFont
+            font.pixelSize: Theme.Tokens.text.xl
+            color:          Theme.Tokens.color.accent
 
-            Behavior on color { ColorAnimation { duration: Theme.ThemeManager.motion.duration.fast } }
+            Behavior on color { ColorAnimation { duration: Theme.Tokens.motion.fast } }
         }
 
         MouseArea {

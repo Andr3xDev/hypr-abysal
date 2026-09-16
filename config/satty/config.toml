@@ -13,8 +13,6 @@ floating-hack = true
 # Change to true to automatically copy to clipboard after every annotation change
 # Exit directly after copy/save action. 0.20.1: Does not apply to save as
 early-exit = true
-# Exit directly after save as (0.20.1)
-early-exit-save-as = true
 # Draw corners of rectangles round if the value is greater than 0 (0 disables rounded corners)
 corner-roundness = 10
 # Select the tool on startup [possible values: pointer, crop, line, arrow, rectangle, text, marker, blur, brush]

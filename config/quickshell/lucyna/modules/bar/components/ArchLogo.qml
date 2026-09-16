@@ -13,8 +13,8 @@ Item {
         id: logoText
         anchors.centerIn: parent
         text: " 󰣇 "
-        color: Theme.ThemeManager.colors.on.surface
-        font.pixelSize: Theme.ThemeManager.typography.size.lg
-        font.family: Theme.ThemeManager.typography.family.icons
+        color: Theme.Tokens.color.accent
+        font.pixelSize: Theme.Tokens.text.lg
+        font.family: Theme.Tokens.text.iconFont
     }
 }

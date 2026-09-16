@@ -24,7 +24,7 @@ Item {
     readonly property int _todayDay:   _today.getDate()
     readonly property int _todayMonth: _today.getMonth() + 1
     readonly property int _todayYear:  _today.getFullYear()
-    readonly property color _todayColor: Theme.ThemeManager.alpha(Theme.ThemeManager.colors.accent, 0.18)
+    readonly property color _todayColor: Theme.Tokens.color.accentSurface
     // Static data
     readonly property var _monthNames: ["January","February","March","April","May","June","July","August","September","October","November","December"]
     readonly property var _weekLabels: ["Su","Mo","Tu","We","Th","Fr","Sa"]
@@ -93,19 +93,19 @@ Item {
             Layout.fillWidth: true
             Layout.bottomMargin: 3
             implicitHeight: root._headerH
-            spacing: Theme.ThemeManager.spacing.xs
+            spacing: Theme.Tokens.space.xs
 
             Text {
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignLeft
                 leftPadding: 5
                 text: root._monthNames[root.displayMonth - 1] + "  " + root.displayYear
-                color: Theme.ThemeManager.colors.on.surface
-                font.pixelSize: Theme.ThemeManager.typography.size.md
+                color: Theme.Tokens.color.textPrimary
+                font.pixelSize: Theme.Tokens.text.md
                 font.bold: true
             }
 
-            NavButton { label: "Today"; labelColor: Theme.ThemeManager.colors.accent; labelSize: Theme.ThemeManager.typography.size.xs; onActivated: root._goToday() }
+            NavButton { label: "Today"; labelColor: Theme.Tokens.color.accent; labelSize: Theme.Tokens.text.xs; onActivated: root._goToday() }
             NavButton { implicitWidth: 26; label: "‹"; onActivated: root._prevMonth() }
             NavButton { implicitWidth: 26; label: "›"; onActivated: root._nextMonth() }
         }
@@ -124,8 +124,8 @@ Item {
                     text: modelData
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    color: Theme.ThemeManager.colors.on.surfaceMuted
-                    font.pixelSize: Theme.ThemeManager.typography.size.xs
+                    color: Theme.Tokens.color.textMuted
+                    font.pixelSize: Theme.Tokens.text.xs
                     font.bold: true
                 }
             }
@@ -150,20 +150,19 @@ Item {
                         width: root._cellSize - 4
                         height: root._cellSize - 4
                         radius: (root._cellSize - 4) / 2
-                        color: modelData.isToday ? root._todayColor : "transparent"
+                        color: modelData.isToday ? root._todayColor : Theme.Tokens.color.bg
                     }
 
                     Text {
                         anchors.centerIn: parent
                         text: modelData.day
-                        font.pixelSize: Theme.ThemeManager.typography.size.sm
+                        font.pixelSize: Theme.Tokens.text.sm
                         font.bold: modelData.isToday
-                        opacity: modelData.isCurrentMonth ? 1 : 0.3
-                        color: modelData.isToday
-                            ? Theme.ThemeManager.colors.accent
-                            : (modelData.isCurrentMonth && (modelData.isSunday || modelData.isHoliday))
-                                ? Theme.ThemeManager.colors.accent
-                                : Theme.ThemeManager.colors.on.surface
+                        color: !modelData.isCurrentMonth
+                            ? Theme.Tokens.color.textMuted
+                            : (modelData.isToday || modelData.isSunday || modelData.isHoliday)
+                                ? Theme.Tokens.color.accent
+                                : Theme.Tokens.color.textPrimary
                     }
                 }
             }
@@ -180,16 +179,16 @@ Item {
 
         signal activated()
 
-        implicitWidth: lbl.implicitWidth + Theme.ThemeManager.spacing.md
+        implicitWidth: lbl.implicitWidth + Theme.Tokens.space.md
         implicitHeight: 26
-        radius: Theme.ThemeManager.radius.md
-        color: ma.containsMouse ? Theme.ThemeManager.colors.highlight.medium : "transparent"
+        radius: Theme.Tokens.radius.md
+        color: ma.containsMouse ? Theme.Tokens.color.bgHover : Theme.Tokens.color.bg
 
         Text {
             id: lbl
             anchors.centerIn: parent
-            color: Theme.ThemeManager.colors.on.surface
-            font.pixelSize: Theme.ThemeManager.typography.size.md
+            color: Theme.Tokens.color.textPrimary
+            font.pixelSize: Theme.Tokens.text.md
         }
 
         MouseArea {
@@ -200,6 +199,6 @@ Item {
             onClicked: btn.activated()
         }
 
-        Behavior on color { ColorAnimation { duration: Theme.ThemeManager.motion.duration.fast } }
+        Behavior on color { ColorAnimation { duration: Theme.Tokens.motion.fast } }
     }
 }

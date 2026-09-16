@@ -12,12 +12,10 @@ Item {
     // Base values
     property real value: 0
     property string icon: ""
-    property real iconSize: Theme.ThemeManager.typography.size.xs
+    property real iconSize: Theme.Tokens.text.xs
     property real size: 24
     property real lineWidth: 2
-    readonly property color effectiveColor: value >= 75
-        ? Theme.ThemeManager.colors.status.error  // critical
-        : Theme.ThemeManager.colors.accent  // normal
+    readonly property color effectiveColor: value >= 75 ? Theme.Tokens.severity("critical") : Theme.Tokens.hue.aquamarine.fill
 
     // Circle with progress
     Canvas {
@@ -67,7 +65,7 @@ Item {
         text: circularMetric.icon
         color: circularMetric.effectiveColor
         font.pixelSize: circularMetric.iconSize
-        font.family: Theme.ThemeManager.typography.family.icons
+        font.family: Theme.Tokens.text.iconFont
         z: 1
     }
 }

@@ -17,11 +17,11 @@ ExpandableRow {
     RowLayout {
         id: metricsRow
         anchors.centerIn: parent
-        spacing: 2  // ponytail: intentionally a raw literal, mirrors the known-good reference implementation exactly — do not migrate to a spacing token, a prior token migration here caused a real layout-shift bug (session-confirmed)
+        spacing: 2  // raw literal: a spacing token here caused a layout shift
         opacity: root.expanded ? 1 : 0
 
         Behavior on opacity {
-            NumberAnimation { duration: Theme.ThemeManager.motion.duration.standard }
+            NumberAnimation { duration: Theme.Tokens.motion.standard }
         }
 
         CircularMetric {

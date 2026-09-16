@@ -23,19 +23,19 @@ ComboBox {
     implicitHeight: 32
 
     background: Rectangle {
-        color:        Theme.ThemeManager.colors.surface.secondary
-        radius:       Theme.ThemeManager.radius.lg
+        color:        Theme.Tokens.color.bgElevated
+        radius:       Theme.Tokens.radius.lg
         border.width: 1
         border.color: root.activeFocus
-                          ? Theme.ThemeManager.colors.accent
-                          : Theme.ThemeManager.colors.border
+                          ? Theme.Tokens.color.accent
+                          : Theme.Tokens.color.border
     }
 
     contentItem: Text {
         leftPadding:       8
         text:              root.displayText
-        color:             Theme.ThemeManager.colors.on.surface
-        font.pixelSize:    Theme.ThemeManager.typography.size.md
+        color:             Theme.Tokens.color.textPrimary
+        font.pixelSize:    Theme.Tokens.text.md
         verticalAlignment: Text.AlignVCenter
         elide:             Text.ElideRight
     }
@@ -48,16 +48,16 @@ ComboBox {
             leftPadding:       8
             text:              modelData
             color:             highlighted
-                                   ? Theme.ThemeManager.colors.accent
-                                   : Theme.ThemeManager.colors.on.surface
-            font.pixelSize:    Theme.ThemeManager.typography.size.md
+                                   ? Theme.Tokens.color.accent
+                                   : Theme.Tokens.color.textPrimary
+            font.pixelSize:    Theme.Tokens.text.md
             verticalAlignment: Text.AlignVCenter
         }
         background: Rectangle {
             color:  highlighted
-                        ? Theme.ThemeManager.colors.highlight.medium
-                        : "transparent"
-            radius: Theme.ThemeManager.radius.md
+                        ? Theme.Tokens.color.accentSurface
+                        : Theme.Tokens.color.bgElevated
+            radius: Theme.Tokens.radius.md
         }
     }
 
@@ -67,28 +67,28 @@ ComboBox {
         padding: 0
 
         background: Rectangle {
-            color:        Theme.ThemeManager.colors.surface.secondary
-            radius:       Theme.ThemeManager.radius.lg
+            color:        Theme.Tokens.color.bgElevated
+            radius:       Theme.Tokens.radius.lg
             border.width: 1
-            border.color: Theme.ThemeManager.colors.border
+            border.color: Theme.Tokens.color.border
         }
 
         contentItem: Rectangle {
             color:  "transparent"
-            radius: Theme.ThemeManager.radius.lg
+            radius: Theme.Tokens.radius.lg
             clip:   true
 
-            implicitHeight: Math.min(_list.contentHeight + Theme.ThemeManager.spacing.sm * 2,
+            implicitHeight: Math.min(_list.contentHeight + Theme.Tokens.space.sm * 2,
                                      root.maxPopupHeight)
 
             ListView {
                 id: _list
                 anchors {
                     fill:         parent
-                    topMargin:    Theme.ThemeManager.spacing.xs
-                    bottomMargin: Theme.ThemeManager.spacing.xs
-                    leftMargin:   Theme.ThemeManager.spacing.xs
-                    rightMargin:  Theme.ThemeManager.spacing.xs
+                    topMargin:    Theme.Tokens.space.xs
+                    bottomMargin: Theme.Tokens.space.xs
+                    leftMargin:   Theme.Tokens.space.xs
+                    rightMargin:  Theme.Tokens.space.xs
                 }
                 clip:         true
                 model:        root.delegateModel

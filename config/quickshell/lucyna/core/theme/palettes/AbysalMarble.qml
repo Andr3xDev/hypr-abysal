@@ -4,6 +4,9 @@ import QtQuick
 
 /*!
     Abysal Light (Marble) — light variant of the Abysal palette family.
+    Not migrated to the Nerita primitive contract. Unregistered until it
+    supplies the 25 primitive keys (7 neutrals + 9 hues x {fill, dark}).
+    Kept on disk for its light-theme color research.
 */
 QtObject {
     id: palette
@@ -55,11 +58,6 @@ QtObject {
         readonly property color error:   palette.tokens.coral
         readonly property color warning: palette.tokens.amber
     }
-    readonly property QtObject highlight: QtObject {
-        readonly property color subtle: Qt.rgba(0.051, 0.580, 0.533, 0.15)  // primary #0D9488 @ 15%
-        readonly property color medium: Qt.rgba(0.051, 0.580, 0.533, 0.35)  // primary #0D9488 @ 35%
-        readonly property color strong: Qt.rgba(0.051, 0.580, 0.533, 0.6)   // primary #0D9488 @ 60%
-    }
     readonly property color border:         palette.tokens.border
     readonly property color borderSubtle:   palette.tokens.border_subtle
     readonly property color borderStrong:   palette.tokens.border_strong
@@ -67,5 +65,4 @@ QtObject {
     readonly property color accentMuted:    palette.tokens.primary_muted
     readonly property color detail:         palette.tokens.gold
     readonly property color detailSecondary: palette.tokens.blue
-    readonly property real  barOpacity: 0.92
 }

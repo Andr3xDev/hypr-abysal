@@ -20,7 +20,7 @@ PanelWindow {
     readonly property int itemCount: 3
     readonly property int itemHeight: 48
     readonly property int searchH: 44
-    readonly property int pad: Theme.ThemeManager.spacing.md
+    readonly property int pad: Theme.Tokens.space.md
     readonly property int cardW: 380
     readonly property int cardH: searchH + (itemHeight * itemCount) + (pad * 3) + 8
 
@@ -43,7 +43,7 @@ PanelWindow {
     }
 
     // ── Visibility ───────────────────────────────────────
-    color: "transparent"
+    color: "transparent" // layer-shell root — must not paint, real card bg is the Rectangle below
     visible: false
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.namespace: "appLauncher"
@@ -74,7 +74,6 @@ PanelWindow {
     // ── Background overlay ───────────────────────────────
     DarkOverlay {
         visible: root.visible
-        overlayOpacity: 0.5
         onClicked: root.close()
     }
 
@@ -85,10 +84,10 @@ PanelWindow {
         width: root.cardW
         height: root.cardH
         anchors.centerIn: parent
-        color: Theme.ThemeManager.colors.surface.primary
-        radius: Theme.ThemeManager.radius.md
+        color: Theme.Tokens.color.bg
+        radius: Theme.Tokens.radius.md
         border.width: 1
-        border.color: Theme.ThemeManager.colors.border
+        border.color: Theme.Tokens.color.border
         opacity: root.visible ? 1 : 0
         scale: root.visible ? 1 : 0.97
 
@@ -97,7 +96,7 @@ PanelWindow {
         }
 
         Column {
-            spacing: Theme.ThemeManager.spacing.sm
+            spacing: Theme.Tokens.space.sm
 
             anchors {
                 fill: parent
@@ -111,9 +110,9 @@ PanelWindow {
                 width: parent.width
                 height: root.searchH
                 placeholderText: "Only Binary..."
-                placeholderTextColor: Theme.ThemeManager.colors.on.surfaceMuted
-                color: Theme.ThemeManager.colors.on.surface
-                font.pixelSize: Theme.ThemeManager.typography.size.lg
+                placeholderTextColor: Theme.Tokens.color.textMuted
+                color: Theme.Tokens.color.textPrimary
+                font.pixelSize: Theme.Tokens.text.lg
                 font.letterSpacing: 0.3
                 leftPadding: 34
                 rightPadding: root.pad
@@ -126,16 +125,16 @@ PanelWindow {
                 Keys.onReturnPressed: appList.launchCurrent()
 
                 background: Rectangle {
-                    color: Theme.ThemeManager.colors.surface.secondary
-                    radius: Theme.ThemeManager.radius.lg
+                    color: Theme.Tokens.color.bgElevated
+                    radius: Theme.Tokens.radius.lg
                     border.width: 1
-                    border.color: searchInput.activeFocus ? Theme.ThemeManager.colors.accent : Theme.ThemeManager.colors.border
+                    border.color: searchInput.activeFocus ? Theme.Tokens.color.accent : Theme.Tokens.color.border
 
                     Text {
                         text: " 󰍉 "
-                        font.family: Theme.ThemeManager.typography.family.icons
-                        font.pixelSize: Theme.ThemeManager.typography.size.xl
-                        color: Theme.ThemeManager.colors.accent
+                        font.family: Theme.Tokens.text.iconFont
+                        font.pixelSize: Theme.Tokens.text.xl
+                        color: Theme.Tokens.color.accent
 
                         anchors {
                             verticalCenter: parent.verticalCenter
@@ -174,13 +173,13 @@ PanelWindow {
                 }
 
                 highlight: Rectangle {
-                    radius: Theme.ThemeManager.radius.lg
-                    color: Theme.ThemeManager.colors.surface.secondary
+                    radius: Theme.Tokens.radius.lg
+                    color: Theme.Tokens.color.bgElevated
 
                     Behavior on y {
                         NumberAnimation {
-                            duration: Theme.ThemeManager.motion.duration.fast
-                            easing.type: Theme.ThemeManager.motion.easing.standard
+                            duration: Theme.Tokens.motion.fast
+                            easing.type: Theme.Tokens.motion.ease
                         }
                     }
                 }
@@ -195,7 +194,7 @@ PanelWindow {
                     height: root.itemHeight
 
                     Row {
-                        spacing: Theme.ThemeManager.spacing.md
+                        spacing: Theme.Tokens.space.md
                         scale: delegateRoot.isCurrent ? 1.1 : 1
                         transformOrigin: Item.Left
 
@@ -214,21 +213,21 @@ PanelWindow {
 
                         Text {
                             text: modelData.name
-                            color: delegateRoot.isCurrent ? Theme.ThemeManager.colors.on.surface : Theme.ThemeManager.colors.on.surfaceMuted
-                            font.pixelSize: Theme.ThemeManager.typography.size.lg
+                            color: delegateRoot.isCurrent ? Theme.Tokens.color.textPrimary : Theme.Tokens.color.textMuted
+                            font.pixelSize: Theme.Tokens.text.lg
                             font.letterSpacing: 0.2
                             height: root.itemHeight
                             verticalAlignment: Text.AlignVCenter
 
                             Behavior on color {
-                                ColorAnimation { duration: Theme.ThemeManager.motion.duration.fast }
+                                ColorAnimation { duration: Theme.Tokens.motion.fast }
                             }
                         }
 
                         Behavior on scale {
                             NumberAnimation {
-                                duration: Theme.ThemeManager.motion.duration.fast
-                                easing.type: Theme.ThemeManager.motion.easing.standard
+                                duration: Theme.Tokens.motion.fast
+                                easing.type: Theme.Tokens.motion.ease
                             }
                         }
                     }
@@ -257,8 +256,8 @@ PanelWindow {
 
             Text {
                 text: "\"We all make choices, but in the end... our choices make us\""
-                color: Theme.ThemeManager.colors.on.surfaceMuted
-                font.pixelSize: Theme.ThemeManager.typography.size.md
+                color: Theme.Tokens.color.textMuted
+                font.pixelSize: Theme.Tokens.text.md
                 font.italic: true
                 horizontalAlignment: Text.AlignHCenter
                 width: parent.width
@@ -267,23 +266,23 @@ PanelWindow {
 
             Text {
                 text: "Andrew Ryan"
-                color: Theme.ThemeManager.colors.on.surfaceMuted
-                font.pixelSize: Theme.ThemeManager.typography.size.sm
+                color: Theme.Tokens.color.textMuted
+                font.pixelSize: Theme.Tokens.text.sm
                 horizontalAlignment: Text.AlignHCenter
                 width: parent.width
             }
 
             Text {
                 text: "BioShock"
-                color: Theme.ThemeManager.colors.on.surfaceMuted
-                font.pixelSize: Theme.ThemeManager.typography.size.sm
+                color: Theme.Tokens.color.textMuted
+                font.pixelSize: Theme.Tokens.text.sm
                 font.italic: true
                 horizontalAlignment: Text.AlignHCenter
                 width: parent.width
             }
         }
 
-        Behavior on opacity { NumberAnimation { duration: Theme.ThemeManager.motion.duration.fast; easing.type: Theme.ThemeManager.motion.easing.standard } }
-        Behavior on scale   { NumberAnimation { duration: Theme.ThemeManager.motion.duration.fast; easing.type: Theme.ThemeManager.motion.easing.standard } }
+        Behavior on opacity { NumberAnimation { duration: Theme.Tokens.motion.fast; easing.type: Theme.Tokens.motion.ease } }
+        Behavior on scale   { NumberAnimation { duration: Theme.Tokens.motion.fast; easing.type: Theme.Tokens.motion.ease } }
     }
 }

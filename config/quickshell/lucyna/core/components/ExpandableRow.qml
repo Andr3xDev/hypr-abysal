@@ -34,8 +34,8 @@ Item {
 
     Behavior on implicitWidth {
         NumberAnimation {
-            duration: Theme.ThemeManager.motion.duration.standard
-            easing.type: Theme.ThemeManager.motion.easing.standard
+            duration: Theme.Tokens.motion.standard
+            easing.type: Theme.Tokens.motion.ease
         }
     }
 }

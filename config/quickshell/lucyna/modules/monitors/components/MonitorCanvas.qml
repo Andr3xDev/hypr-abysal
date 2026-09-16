@@ -31,8 +31,8 @@ Item {
     // Background
     Rectangle {
         anchors.fill: parent
-        color:        Theme.ThemeManager.colors.surface.secondary
-        radius:       Theme.ThemeManager.radius.md
+        color:        Theme.Tokens.color.bgElevated
+        radius:       Theme.Tokens.radius.md
     }
 
     // Monitor rectangles
@@ -57,23 +57,16 @@ Item {
             // Monitor rectangle
             Rectangle {
                 anchors.fill: parent
-                radius:       Theme.ThemeManager.radius.lg
+                radius:       Theme.Tokens.radius.lg
                 color: {
-                    if (delegateRoot.isDisabled)
-                        return Qt.rgba(
-                            Theme.ThemeManager.colors.surface.secondary.r,
-                            Theme.ThemeManager.colors.surface.secondary.g,
-                            Theme.ThemeManager.colors.surface.secondary.b, 0.5)
-                    if (delegateRoot.isSelected)
-                        return Theme.ThemeManager.colors.accentMuted
-                    return Theme.ThemeManager.colors.surface.primary
+                    if (delegateRoot.isDisabled) return Theme.Tokens.color.bg
+                    if (delegateRoot.isSelected) return Theme.Tokens.color.accentSurface
+                    return Theme.Tokens.color.bgElevated
                 }
                 border.width: delegateRoot.isSelected ? 2 : 1
                 border.color: delegateRoot.isSelected
-                    ? Theme.ThemeManager.colors.accent
-                    : Theme.ThemeManager.colors.border
-
-                opacity: delegateRoot.isDisabled ? 0.4 : 1.0
+                    ? Theme.Tokens.color.accent
+                    : Theme.Tokens.color.border
 
                 // Monitor info
                 IdentityBadge {
@@ -101,6 +94,7 @@ Item {
                     anchors.verticalCenterOffset: 16
                     text:       "DISABLED"
                     role:       "caption"
+                    muted:      true
                     font.bold:  true
                     visible:    delegateRoot.isDisabled
                 }

@@ -14,56 +14,56 @@ ExpandableRow {
         Return color to indicate warning levels
     */
     function getTempColor(temp) {
-        if (temp >= 80) return Theme.ThemeManager.colors.status.error    // critical
-        if (temp >= 70) return Theme.ThemeManager.colors.status.warning  // warning
-        return Theme.ThemeManager.colors.accent                  // normal
+        if (temp >= 80) return Theme.Tokens.severity("critical")
+        if (temp >= 70) return Theme.Tokens.severity("warn")
+        return Theme.Tokens.hue.aquamarine.fill
     }
     
     RowLayout {
         id: tempsRow
         anchors.centerIn: parent
-        spacing: 10  // ponytail: intentionally a raw literal, mirrors the known-good reference implementation exactly — do not migrate to a spacing token, a prior token migration here caused a real layout-shift bug (session-confirmed)
+        spacing: 10  // raw literal: a spacing token here caused a layout shift
         opacity: root.expanded ? 1 : 0
         
         Behavior on opacity {
-            NumberAnimation { duration: Theme.ThemeManager.motion.duration.standard }
+            NumberAnimation { duration: Theme.Tokens.motion.standard }
         }
         
         // CPU Temperature
         RowLayout {
             visible: Services.TemperatureService.cpuTemp > 0
-            spacing: Theme.ThemeManager.spacing.xs
+            spacing: Theme.Tokens.space.xs
             
             Text {
                 text: "󰍛"
                 color: root.getTempColor(Services.TemperatureService.cpuTemp)
-                font.pixelSize: Theme.ThemeManager.typography.iconSize
-                font.family: Theme.ThemeManager.typography.family.icons
+                font.pixelSize: Theme.Tokens.text.icon
+                font.family: Theme.Tokens.text.iconFont
             }
             
             Text {
                 text: `${Math.round(Services.TemperatureService.cpuTemp)}°`
-                color: Theme.ThemeManager.colors.on.surface
-                font.pixelSize: Theme.ThemeManager.typography.size.sm
+                color: Theme.Tokens.color.textPrimary
+                font.pixelSize: Theme.Tokens.text.sm
             }
         }
         
         // GPU Temperature
         RowLayout {
             visible: Services.TemperatureService.hasGPU
-            spacing: Theme.ThemeManager.spacing.xs
+            spacing: Theme.Tokens.space.xs
             
             Text {
                 text: "󰾲"
                 color: root.getTempColor(Services.TemperatureService.gpuTemp)
-                font.pixelSize: Theme.ThemeManager.typography.iconSize
-                font.family: Theme.ThemeManager.typography.family.icons
+                font.pixelSize: Theme.Tokens.text.icon
+                font.family: Theme.Tokens.text.iconFont
             }
             
             Text {
                 text: `${Math.round(Services.TemperatureService.gpuTemp)}°`
-                color: Theme.ThemeManager.colors.on.surface
-                font.pixelSize: Theme.ThemeManager.typography.size.sm
+                color: Theme.Tokens.color.textPrimary
+                font.pixelSize: Theme.Tokens.text.sm
             }
         }
     }

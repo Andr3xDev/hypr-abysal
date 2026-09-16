@@ -20,16 +20,16 @@ Text {
     property bool muted: false
 
     color: muted
-        ? Theme.ThemeManager.colors.on.surfaceMuted
-        : Theme.ThemeManager.colors.on.surface
+        ? Theme.Tokens.color.textMuted
+        : Theme.Tokens.color.textPrimary
 
     font.pixelSize: {
         switch (role) {
-            case "caption":  return Theme.ThemeManager.typography.size.xs
-            case "body":     return Theme.ThemeManager.typography.size.sm
-            case "subtitle": return Theme.ThemeManager.typography.size.md
-            case "title":    return Theme.ThemeManager.typography.size.lg
-            default:         return Theme.ThemeManager.typography.size.sm
+            case "caption":  return Theme.Tokens.text.xs
+            case "body":     return Theme.Tokens.text.sm
+            case "subtitle": return Theme.Tokens.text.md
+            case "title":    return Theme.Tokens.text.lg
+            default:         return Theme.Tokens.text.sm
         }
     }
 }

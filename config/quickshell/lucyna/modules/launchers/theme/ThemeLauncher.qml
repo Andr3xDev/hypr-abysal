@@ -33,7 +33,7 @@ PanelWindow {
     implicitWidth: 280
     implicitHeight: visible ? background.implicitHeight + 50 : 0
     visible: false
-    color: "transparent"
+    color: "transparent" // layer-shell root — must not paint, real panel bg is the Rectangle below
 
     // Script path for external theme changes (hyprland, etc)
     property string externalScriptPath: ""
@@ -45,9 +45,9 @@ PanelWindow {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 50
-        color: Theme.ThemeManager.colors.surface.secondary
-        radius: Theme.ThemeManager.radius.none
-        border.color: Theme.ThemeManager.colors.borderStrong
+        color: Theme.Tokens.color.bgElevated
+        radius: Theme.Tokens.radius.none
+        border.color: Theme.Tokens.color.borderStrong
         border.width: 1
 
         implicitHeight: contentColumn.implicitHeight + 32
@@ -59,26 +59,26 @@ PanelWindow {
             id: contentColumn
             anchors {
                 fill: parent
-                margins: Theme.ThemeManager.spacing.lg
+                margins: Theme.Tokens.space.lg
             }
-            spacing: Theme.ThemeManager.spacing.md
+            spacing: Theme.Tokens.space.md
 
             // Header
             RowLayout {
                 Layout.fillWidth: true
-                spacing: Theme.ThemeManager.spacing.sm
+                spacing: Theme.Tokens.space.sm
 
                 Text {
                     text: "󰔎"
-                    color: Theme.ThemeManager.colors.on.surfaceMuted
-                    font.pixelSize: Theme.ThemeManager.typography.size.xl
-                    font.family: Theme.ThemeManager.typography.family.icons
+                    color: Theme.Tokens.color.textMuted
+                    font.pixelSize: Theme.Tokens.text.xl
+                    font.family: Theme.Tokens.text.iconFont
                 }
 
                 Text {
                     text: "Themes"
-                    color: Theme.ThemeManager.colors.on.surface
-                    font.pixelSize: Theme.ThemeManager.typography.size.lg
+                    color: Theme.Tokens.color.textPrimary
+                    font.pixelSize: Theme.Tokens.text.lg
                     font.bold: true
                 }
 
@@ -90,15 +90,15 @@ PanelWindow {
                     height: 20
                     radius: 2
                     color: closeMouseArea.containsMouse
-                        ? Theme.ThemeManager.colors.accent
-                        : "transparent"
+                        ? Theme.Tokens.color.accentSurface
+                        : Theme.Tokens.color.bg
 
                     Text {
                         anchors.centerIn: parent
                         text: "󰅖"
-                        color: Theme.ThemeManager.colors.accent
-                        font.pixelSize: Theme.ThemeManager.typography.size.sm
-                        font.family: Theme.ThemeManager.typography.family.icons
+                        color: Theme.Tokens.color.accent
+                        font.pixelSize: Theme.Tokens.text.sm
+                        font.family: Theme.Tokens.text.iconFont
                     }
 
                     MouseArea {
@@ -115,7 +115,7 @@ PanelWindow {
             Rectangle {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 1
-                color: Theme.ThemeManager.colors.borderSubtle
+                color: Theme.Tokens.color.border
             }
 
             // Theme list

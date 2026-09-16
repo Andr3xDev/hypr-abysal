@@ -1,44 +1,44 @@
 # ---------------------------------------------------------------------------
-# Abysal Obsidian
-# Ghostty terminal color scheme for the Abysal Obsidian theme
+# Abysal Pastel
+# Ghostty terminal color scheme for the Abysal Pastel theme
 # ---------------------------------------------------------------------------
 
-# General stuff
-background = #0E161A
-foreground = #E3E9EB
-cursor-color = #2DD4BF
-cursor-text = #0E161A
-selection-background = #17393B
-selection-foreground = #E3E9EB
+# General stuff — Abysal Nerita
+background = #151515
+foreground = #E9EDEB
+cursor-color = #5AE2DD
+cursor-text = #151515
+selection-background = #143937
+selection-foreground = #E9EDEB
 
-# Black / Dark Gray (Borders and Comments)
-palette = 0 = #1D2C34
-palette = 8 = #5B6E72
+# Negro / gris — neutros
+palette = 0 = #232323
+palette = 8 = #72837D
 
-# Red (Errors and Git Deletions)
-palette = 1 = #FF6369
-palette = 9 = #FF8352
+# Rojo — semáforo (error)
+palette = 1 = #EF616D
+palette = 9 = #EF9FA5
 
-# Green (Turquoise hack)
-palette = 2 = #2DD4BF
-palette = 10 = #14B8A6
+# Verde — semáforo (éxito)
+palette = 2 = #67E4B2
+palette = 10 = #A0E9CC
 
-# Yellow (Sand - Warnings and secondary attributes)
-palette = 3 = #E9D568
-palette = 4 = #E9D568
-palette = 11 = #E9D568
+# Amarillo/naranja — semáforo (warning/peligro)
+palette = 3 = #ECEC8D
+palette = 11 = #393914
 
-# Blue (Orange - Folders/Directories)
-palette = 12 = #D9973A
+# Azul → slot que `ls`/LS_COLORS usa para directorios
+palette = 4 = #94E6E3
+palette = 12 = #5AE2DD
 
-# Magenta (Turquoise - Keywords and syntax control)
-palette = 5 = #2DD4BF
-palette = 13 = #14B8A6
+# Magenta → slot que ya usas para comandos (zsh-syntax-highlighting)
+palette = 5 = #A6D5F2
+palette = 13 = #94E6E3
 
-# Cyan (Real blue — symlinks/special files)
-palette = 6 = #6C93E8
-palette = 14 = #8FADF2
+# Cian — identidad terciaria, uso raro
+palette = 6 = #A6D5F2
+palette = 14 = #CDE5F4
 
-# White (Light Gray - Secondary and highlighted text)
-palette = 7 = #7A8B8E
-palette = 15 = #E3E9EB
+# Blanco
+palette = 7 = #A7B4B0
+palette = 15 = #E9EDEB

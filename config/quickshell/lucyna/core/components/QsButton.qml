@@ -16,8 +16,8 @@ import "../theme" as Theme
     Any variant color can be overridden per-instance:
         QsButton {
             variant:    "filled"
-            bgColor:    Theme.ThemeManager.colors.status.warning
-            labelColor: Theme.ThemeManager.colors.surface.primary
+            bgColor:    Theme.Tokens.color.warning
+            labelColor: Theme.Tokens.color.bg
             onClicked:  doSomething()
         }
 */
@@ -34,9 +34,10 @@ Rectangle {
     property string variant: "ghost"
 
     // Color overrides
-    property color bgColor:    _variantBg
-    property color hoverColor: _variantHover
-    property color labelColor: _variantLabel
+    property color bgColor:      _variantBg
+    property color hoverColor:   _variantHover
+    property color labelColor:   root.enabled ? _variantLabel : Theme.Tokens.comp.qsButton.disabledLabel
+    property color hoverLabelColor: _variantHoverLabel
 
     // Border
     property int   borderWidth: variant === "outline" ? 1 : 0
@@ -47,68 +48,72 @@ Rectangle {
     // Internal variant
     readonly property color _variantBg: {
         switch (variant) {
-            case "filled":  return Theme.ThemeManager.colors.accent
-            case "danger":  return Theme.ThemeManager.colors.status.error
-            default:        return "transparent"
+            case "filled":  return Theme.Tokens.color.accent
+            case "danger":  return Theme.Tokens.color.danger
+            default:        return Theme.Tokens.color.bgElevated
         }
     }
 
     readonly property color _variantHover: {
         switch (variant) {
-            case "filled":  return Theme.ThemeManager.colors.accent
-            case "danger":  return Qt.darker(Theme.ThemeManager.colors.status.error, 1.2)
-            default:        return Theme.ThemeManager.colors.highlight.medium
+            case "filled":  return Theme.Tokens.color.accent
+            case "danger":  return Theme.Tokens.color.dangerSurface
+            default:        return Theme.Tokens.color.bgHover
         }
     }
 
     readonly property color _variantLabel: {
         switch (variant) {
-            case "filled":  return Theme.ThemeManager.colors.on.accent
-            case "danger":  return Theme.ThemeManager.colors.surface.primary
-            default:        return Theme.ThemeManager.colors.on.surface
+            case "filled":  return Theme.Tokens.color.onAccent
+            case "danger":  return Theme.Tokens.color.bg
+            default:        return Theme.Tokens.color.textPrimary
         }
     }
 
-    readonly property color _variantBorder: {
+    readonly property color _variantHoverLabel: {
         switch (variant) {
-            case "outline": return Theme.ThemeManager.colors.border
-            default:        return "transparent"
+            case "danger": return Theme.Tokens.color.danger
+            default:       return root.labelColor
         }
     }
+
+    // border.width is already 0 for non-outline variants (see borderWidth
+    // above), so this only needs to hold a real value for "outline".
+    readonly property color _variantBorder: Theme.Tokens.color.border
 
 
     // ── Geometry ──────────────────────────────────────────
-    implicitWidth:  _row.implicitWidth  + Theme.ThemeManager.spacing.md * 2
-    implicitHeight: _row.implicitHeight + Theme.ThemeManager.spacing.sm * 2
+    implicitWidth:  _row.implicitWidth  + Theme.Tokens.space.md * 2
+    implicitHeight: _row.implicitHeight + Theme.Tokens.space.sm * 2
 
 
     // ── Visuals ───────────────────────────────────────────
     color:        _area.containsMouse ? root.hoverColor : root.bgColor
-    radius:       Theme.ThemeManager.radius.sm
+    radius:       Theme.Tokens.radius.sm
     border.width: root.borderWidth
     border.color: root.borderColor
 
-    Behavior on color { ColorAnimation { duration: Theme.ThemeManager.motion.duration.fast } }
+    Behavior on color { ColorAnimation { duration: Theme.Tokens.motion.fast } }
 
     Row {
         id: _row
         anchors.centerIn: parent
-        spacing: Theme.ThemeManager.spacing.xs
+        spacing: Theme.Tokens.space.xs
 
         Text {
             visible:        root.glyph !== ""
             text:           root.glyph
-            color:          root.labelColor
-            font.family:    Theme.ThemeManager.typography.family.icons
-            font.pixelSize: Theme.ThemeManager.typography.iconSize
+            color:          _area.containsMouse ? root.hoverLabelColor : root.labelColor
+            font.family:    Theme.Tokens.text.iconFont
+            font.pixelSize: Theme.Tokens.text.icon
             anchors.verticalCenter: parent.verticalCenter
         }
 
         Text {
             visible:        root.label !== ""
             text:           root.label
-            color:          root.labelColor
-            font.pixelSize: Theme.ThemeManager.typography.size.sm
+            color:          _area.containsMouse ? root.hoverLabelColor : root.labelColor
+            font.pixelSize: Theme.Tokens.text.sm
             anchors.verticalCenter: parent.verticalCenter
         }
     }

@@ -10,7 +10,7 @@ import "../../../core/ipc" as Ipc
 */
 Item {
     id: clock
-    implicitWidth: clockText.implicitWidth + Theme.ThemeManager.spacing.lg
+    implicitWidth: clockText.implicitWidth + Theme.Tokens.space.lg
     Layout.fillHeight: true
 
     // Tracks calendar open/close state via EventBus — no direct module coupling
@@ -42,12 +42,12 @@ Item {
         id: clockText
         anchors.centerIn: parent
         font.bold:       true
-        font.pixelSize:  Theme.ThemeManager.typography.size.sm
+        font.pixelSize:  Theme.Tokens.text.sm
         color: clock._calendarOpen
-            ? Theme.ThemeManager.colors.accent
-            : Theme.ThemeManager.colors.on.surface
+            ? Theme.Tokens.color.accent
+            : Theme.Tokens.color.textPrimary
 
-        Behavior on color { ColorAnimation { duration: Theme.ThemeManager.motion.duration.fast } }
+        Behavior on color { ColorAnimation { duration: Theme.Tokens.motion.fast } }
     }
 
     MouseArea {

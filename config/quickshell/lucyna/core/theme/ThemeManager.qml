@@ -2,28 +2,14 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Io
-import "./tokens" as Tokens
-import "./palettes" as ThemeVariants
+import "./primitives" as Primitives
 
 /*!
     ThemeManager — Singleton facade for the design token system.
 
     Single import point for all consumers. Manages the active theme,
-    persists the selection to disk, and exposes the full token API:
-
-      ThemeManager.colors.surface.primary     ← dynamic, reacts to currentTheme
-      ThemeManager.spacing.md                 ← SpacingTokens.md
-      ThemeManager.typography.size.sm         ← TypographyTokens.size.sm
-      ThemeManager.radius.lg                  ← RadiusTokens.lg
-      ThemeManager.motion.duration.standard   ← MotionTokens.duration.standard
-
-    Static tokens (spacing, typography, radius, motion) are owned by their
-    respective singleton files under ./tokens/. ThemeManager exposes them
-    as pass-through references — no duplication.
-
-    Color tokens are resolved inline because they depend on _activePalette,
-    which changes at runtime. A pass-through reference cannot hold reactive
-    bindings to an external dynamic value without a circular dependency.
+    persists the selection to disk, and exposes the active palette's
+    primitives via `p` for Tokens.qml to build the public token API on.
 */
 QtObject {
     id: themeManager
@@ -33,8 +19,7 @@ QtObject {
     property string _pendingSaveJson: ""
 
     readonly property var availableThemes: [
-        "abysal-obsidian",
-        "abysal-marble"
+        "abysal-obsidian"
     ]
 
     // ── Persistence ───────────────────────────────────────
@@ -100,36 +85,12 @@ QtObject {
         _saveProc.running = true
     }
 
-    // ── Palette resolution ────────────────────────────────
-    readonly property var _palettes: ({
-        "abysal-obsidian": ThemeVariants.AbysalObsidian,
-        "abysal-marble":   ThemeVariants.AbysalMarble
+    // ── Primitive resolution (layer 1 — new token system, additive) ───
+    readonly property var _primitivePalettes: ({
+        "abysal-obsidian": Primitives.Nerita
     })
 
-    readonly property var _activePalette: _palettes[currentTheme] ?? _palettes["abysal-obsidian"]
-
-    // ── Color tokens (dynamic — group-level passthrough to _activePalette) ─
-    readonly property QtObject colors: QtObject {
-        readonly property QtObject surface:   themeManager._activePalette.surface
-        readonly property QtObject on:        themeManager._activePalette.on
-        readonly property color    accent:    themeManager._activePalette.accent
-        readonly property QtObject status:    themeManager._activePalette.status
-        readonly property QtObject highlight: themeManager._activePalette.highlight
-        readonly property color    border:         themeManager._activePalette.border
-        readonly property color    borderSubtle:   themeManager._activePalette.borderSubtle
-        readonly property color    borderStrong:   themeManager._activePalette.borderStrong
-        readonly property color    borderEmphasis: themeManager._activePalette.borderEmphasis
-        readonly property color    accentMuted:    themeManager._activePalette.accentMuted
-        readonly property color    detail:         themeManager._activePalette.detail
-        readonly property color    detailSecondary: themeManager._activePalette.detailSecondary
-        readonly property real     barOpacity: themeManager._activePalette.barOpacity
-    }
-
-    // ── Static token API (delegated — single source of truth in each file) ─
-    readonly property var spacing:    Tokens.SpacingTokens
-    readonly property var typography: Tokens.TypographyTokens
-    readonly property var radius:     Tokens.RadiusTokens
-    readonly property var motion:     Tokens.MotionTokens
+    readonly property QtObject p: _primitivePalettes[currentTheme] ?? Primitives.Nerita
 
     // ── Public API ────────────────────────────────────────
     function setTheme(themeName) {
@@ -139,17 +100,15 @@ QtObject {
         return true
     }
 
-    function getNextTheme() {
-        const idx = availableThemes.indexOf(currentTheme)
-        return availableThemes[(idx + 1) % availableThemes.length]
-    }
-
     function getThemeDisplayName(themeName) {
-        const p = _palettes[themeName]
-        return p ? p.name : themeName
+        const primitive = _primitivePalettes[themeName]
+        return primitive ? primitive.name : themeName
     }
 
-    function alpha(baseColor, alphaValue) {
-        return Qt.rgba(baseColor.r, baseColor.g, baseColor.b, alphaValue)
+    // Preview swatch colors for a given theme id — used by ThemeList to
+    // render a dot row per listed theme, not just the active one.
+    function previewColors(themeName) {
+        const primitive = _primitivePalettes[themeName] ?? Primitives.Nerita
+        return [primitive.neutral.bg, primitive.hue.turquoise.fill, primitive.hue.aquamarine.fill]
     }
 }

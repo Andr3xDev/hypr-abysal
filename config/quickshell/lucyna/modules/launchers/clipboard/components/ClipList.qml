@@ -31,13 +31,13 @@ ListView {
         readonly property bool isCurrent: root.currentIndex === row.index
 
         width:  root.width
-        height: 48
+        height: Theme.Tokens.comp.clip.rowH
 
         // ── Selected background ───────────────────────────
         Rectangle {
             anchors.fill: parent
-            radius: Theme.ThemeManager.radius.lg
-            color:  row.isCurrent ? Theme.ThemeManager.colors.surface.secondary : "transparent"
+            radius: Theme.Tokens.radius.lg
+            color:  row.isCurrent ? Theme.Tokens.color.bgElevated : Theme.Tokens.color.bg
         }
 
         // ── Accent bar ────────────────────────────────────
@@ -46,7 +46,7 @@ ListView {
             height: parent.height - 12
             anchors { verticalCenter: parent.verticalCenter; left: parent.left; leftMargin: 2 }
             radius:  2
-            color:   Theme.ThemeManager.colors.accent
+            color:   Theme.Tokens.color.accent
             visible: row.isCurrent
         }
 
@@ -58,8 +58,8 @@ ListView {
                 rightMargin: row.isCurrent ? 40 : 12
             }
 
-            Behavior on anchors.rightMargin { NumberAnimation { duration: Theme.ThemeManager.motion.duration.fast; easing.type: Theme.ThemeManager.motion.easing.standard } }
-            Behavior on anchors.leftMargin  { NumberAnimation { duration: Theme.ThemeManager.motion.duration.fast; easing.type: Theme.ThemeManager.motion.easing.standard } }
+            Behavior on anchors.rightMargin { NumberAnimation { duration: Theme.Tokens.motion.fast; easing.type: Theme.Tokens.motion.ease } }
+            Behavior on anchors.leftMargin  { NumberAnimation { duration: Theme.Tokens.motion.fast; easing.type: Theme.Tokens.motion.ease } }
 
             // Text entry
             Text {
@@ -67,20 +67,20 @@ ListView {
                 visible:           row.type !== "image"
                 text:              row.preview
                 color:             row.isCurrent
-                    ? Theme.ThemeManager.colors.on.surface
-                    : Theme.ThemeManager.colors.on.surfaceMuted
-                font.pixelSize:    Theme.ThemeManager.typography.size.md
+                    ? Theme.Tokens.color.textPrimary
+                    : Theme.Tokens.color.textMuted
+                font.pixelSize:    Theme.Tokens.text.md
                 elide:             Text.ElideRight
                 verticalAlignment: Text.AlignVCenter
 
-                Behavior on color { ColorAnimation { duration: Theme.ThemeManager.motion.duration.fast } }
+                Behavior on color { ColorAnimation { duration: Theme.Tokens.motion.fast } }
             }
 
             // Image entry
             Row {
                 id: _imgRow
                 anchors.verticalCenter: parent.verticalCenter
-                spacing: Theme.ThemeManager.spacing.sm
+                spacing: Theme.Tokens.space.sm
                 visible: row.type === "image"
 
                 property bool ready: false
@@ -114,22 +114,22 @@ ListView {
                 Text {
                     visible:           !_imgRow.ready
                     text:              "󰋩"
-                    font.family:       Theme.ThemeManager.typography.family.icons
-                    font.pixelSize:    Theme.ThemeManager.typography.bigIconSize
-                    color:             Theme.ThemeManager.colors.accent
+                    font.family:       Theme.Tokens.text.iconFont
+                    font.pixelSize:    Theme.Tokens.text.iconLg
+                    color:             Theme.Tokens.color.accent
                     verticalAlignment: Text.AlignVCenter
-                    height:            48
+                    height:            Theme.Tokens.comp.clip.rowH
                 }
 
                 Text {
                     text:              "Imagen"
                     color:             row.isCurrent
-                        ? Theme.ThemeManager.colors.on.surface
-                        : Theme.ThemeManager.colors.on.surfaceMuted
-                    font.pixelSize:    Theme.ThemeManager.typography.size.md
+                        ? Theme.Tokens.color.textPrimary
+                        : Theme.Tokens.color.textMuted
+                    font.pixelSize:    Theme.Tokens.text.md
                     font.italic:       !_imgRow.ready
                     verticalAlignment: Text.AlignVCenter
-                    height:            48
+                    height:            Theme.Tokens.comp.clip.rowH
                 }
             }
         }
@@ -141,18 +141,18 @@ ListView {
             width:   24
             height:  24
             anchors { right: parent.right; rightMargin: 8; verticalCenter: parent.verticalCenter }
-            radius: Theme.ThemeManager.radius.lg
+            radius: Theme.Tokens.radius.lg
             color:  _xHover.containsMouse
-                ? Theme.ThemeManager.alpha(Theme.ThemeManager.colors.accent, 0.15)
-                : "transparent"
+                ? Theme.Tokens.color.accentSurface
+                : Theme.Tokens.color.bgElevated
 
-            Behavior on color { ColorAnimation { duration: Theme.ThemeManager.motion.duration.fast } }
+            Behavior on color { ColorAnimation { duration: Theme.Tokens.motion.fast } }
 
             Text {
                 anchors.centerIn: parent
                 text:           "✕"
-                color:          Theme.ThemeManager.colors.accent
-                font.pixelSize: Theme.ThemeManager.typography.size.md
+                color:          Theme.Tokens.color.accent
+                font.pixelSize: Theme.Tokens.text.md
                 font.bold:      true
             }
 
@@ -188,7 +188,7 @@ ListView {
         contentItem: Rectangle {
             implicitWidth: 4
             radius: 2
-            color: Theme.ThemeManager.colors.highlight.strong
+            color: Theme.Tokens.color.accent
         }
     }
 }

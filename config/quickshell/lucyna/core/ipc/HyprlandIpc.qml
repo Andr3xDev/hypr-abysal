@@ -45,38 +45,6 @@ Singleton {
         }
     }
 
-    // ── Workspaces ────────────────────────────────────────
-
-    function switchWorkspace(n) {
-        _dispatch.createObject(root, {
-            running: true,
-            command: ["hyprctl", "dispatch", "workspace", String(n)]
-        })
-    }
-
-    function moveToWorkspace(n) {
-        _dispatch.createObject(root, {
-            running: true,
-            command: ["hyprctl", "dispatch", "movetoworkspace", String(n)]
-        })
-    }
-
-    // ── Windows ───────────────────────────────────────────
-
-    function toggleFloating() {
-        _dispatch.createObject(root, {
-            running: true,
-            command: ["hyprctl", "dispatch", "togglefloating"]
-        })
-    }
-
-    function moveWindow(direction) {
-        _dispatch.createObject(root, {
-            running: true,
-            command: ["hyprctl", "dispatch", "movewindow", direction]
-        })
-    }
-
     // ── System ────────────────────────────────────────────
 
     function reload() {

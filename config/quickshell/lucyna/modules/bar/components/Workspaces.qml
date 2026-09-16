@@ -12,24 +12,8 @@ import "../../../core/components"
 */
 Item {
     implicitWidth: workspaceRow.implicitWidth
-    implicitHeight: parent.height
     width: implicitWidth
-    height: implicitHeight
-
-    // Map as JavaScript object that defines custom display names for workspaces
-    property var workspaceNames: {
-        "1": "イ",
-        "2": "ロ",
-        "3": "ハ",
-        "4": "ニ",
-        "5": "ホ",
-        "6": "ヘ",
-        "7": "ト",
-        "8": "チ",
-        "9": "リ",
-        "10": "ヌ",
-        "11": "ル"  // ponytail: intentional fallback — edge cases can surface workspace 11 despite numWorkspaces defaulting to 10; user-confirmed keep, not dead code
-    }
+    Layout.fillHeight: true
 
     // multi-monitor values to render property
     property var screen: null
@@ -48,8 +32,8 @@ Item {
         or fallback when inactive. Used for both text and border coloring.
     */
     function workspaceColor(workspace, fallback) {
-        if (workspace.focused) return Theme.ThemeManager.colors.accent;
-        if (workspace.active)  return Theme.ThemeManager.colors.accent;
+        if (workspace.focused) return Theme.Tokens.color.accent;
+        if (workspace.active)  return Theme.Tokens.color.accent;
         return fallback;
     }
 
@@ -68,32 +52,26 @@ Item {
                 width: visible ? 25 : 0
                 height: visible ? 25 : 0
 
-                color: "transparent"
+                color: Theme.Tokens.color.bg
                 Layout.alignment: Qt.AlignVCenter
 
-                // Workspaces colors & names implementation
-                Text {
-                    id: workspaceText
-                    anchors.centerIn: parent
-                    text: workspaceNames[localId(modelData.id).toString()] || localId(modelData.id)
-                    color: workspaceColor(modelData, Theme.ThemeManager.colors.on.surfaceMuted)
-                    font.pixelSize: Theme.ThemeManager.typography.size.sm
-                }
-
-                // Bottom border indicator for active/focused workspaces
+                // Workspace indicator: dot for inactive, pill for focused/active
                 Rectangle {
-                    id: bottomBorder
-                    width: parent.width * 0.8
-                    height: 2
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.bottom: parent.bottom
-                    color: workspaceColor(modelData, "transparent")
+                    id: workspaceDot
+                    anchors.centerIn: parent
+                    width: (modelData.focused || modelData.active) ? 20 : 8
+                    height: 8
+                    radius: height / 2
+                    color: workspaceColor(modelData, Theme.Tokens.color.textMuted)
+
+                    Behavior on width { NumberAnimation { duration: Theme.Tokens.motion.fast } }
+                    Behavior on color { ColorAnimation { duration: Theme.Tokens.motion.fast } }
                 }
 
                 // Clickable
                 HoverScale {
                     anchors.fill: parent
-                    target: workspaceText
+                    target: workspaceDot
                     cursorShape: Qt.PointingHandCursor
                     onClicked: modelData.activate()
                 }

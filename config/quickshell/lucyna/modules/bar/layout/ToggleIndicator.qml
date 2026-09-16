@@ -12,14 +12,14 @@ Rectangle {
         ? buttonRow.implicitWidth + (hPad * 2)
         : implicitHeight
     implicitHeight: 20
-    readonly property real hPad: Theme.ThemeManager.spacing.xs
+    readonly property real hPad: Theme.Tokens.space.xs
 
     // Visuals
     color: expanded
-        ? Theme.ThemeManager.colors.accentMuted
-        : "transparent"
-    radius: Theme.ThemeManager.radius.sm
-    border.color: Theme.ThemeManager.colors.borderEmphasis
+        ? Theme.Tokens.color.accentSurface
+        : Theme.Tokens.color.bg
+    radius: Theme.Tokens.radius.sm
+    border.color: Theme.Tokens.color.borderStrong
     border.width: 1
 
     // Values to show
@@ -30,29 +30,29 @@ Rectangle {
     // Animation to open
     Behavior on color {
         ColorAnimation {
-            duration: Theme.ThemeManager.motion.duration.standard
-            easing.type: Theme.ThemeManager.motion.easing.standard
+            duration: Theme.Tokens.motion.standard
+            easing.type: Theme.Tokens.motion.ease
         }
     }
 
     RowLayout {
         id: buttonRow
         anchors.centerIn: parent
-        spacing: Theme.ThemeManager.spacing.xs
+        spacing: Theme.Tokens.space.xs
 
         Text {
             text: icon
             color: expanded
-                ? "#FFFFFF"  // ponytail: deliberately hardcoded, not theme-driven — reads legibly against accentMuted fill in both light/dark themes, unlike any semantic role tried so far
-                : Theme.ThemeManager.colors.on.surface
-            font.pixelSize: Theme.ThemeManager.typography.iconSize
-            font.family: Theme.ThemeManager.typography.family.icons
+                ? Theme.Tokens.color.accent
+                : Theme.Tokens.color.textPrimary
+            font.pixelSize: Theme.Tokens.text.icon
+            font.family: Theme.Tokens.text.iconFont
             Layout.alignment: Qt.AlignCenter
 
             Behavior on color {
                 ColorAnimation {
-                    duration: Theme.ThemeManager.motion.duration.standard
-                    easing.type: Theme.ThemeManager.motion.easing.standard
+                    duration: Theme.Tokens.motion.standard
+                    easing.type: Theme.Tokens.motion.ease
                 }
             }
         }
@@ -61,15 +61,15 @@ Rectangle {
             visible: label !== ""
             text: label
             color: expanded
-                ? Theme.ThemeManager.colors.on.accent
-                : Theme.ThemeManager.colors.on.surface
-            font.pixelSize: Theme.ThemeManager.typography.size.sm
+                ? Theme.Tokens.color.accent
+                : Theme.Tokens.color.textPrimary
+            font.pixelSize: Theme.Tokens.text.sm
             Layout.alignment: Qt.AlignCenter
 
             Behavior on color {
                 ColorAnimation {
-                    duration: Theme.ThemeManager.motion.duration.standard
-                    easing.type: Theme.ThemeManager.motion.easing.standard
+                    duration: Theme.Tokens.motion.standard
+                    easing.type: Theme.Tokens.motion.ease
                 }
             }
         }

@@ -30,7 +30,7 @@ PanelWindow {
 
     // ── Window setup ─────────────────────────────────────
     visible:                     false
-    color:                       "transparent"
+    color:                       "transparent" // layer-shell root — must not paint, real panel bg is ManagerPanel
     WlrLayershell.layer:         WlrLayer.Overlay
     WlrLayershell.namespace:     "monitorManager"
     WlrLayershell.keyboardFocus: root.visible
@@ -52,8 +52,6 @@ PanelWindow {
 
         function onCommitted(ok, errorMessage) {
             if (ok) {
-                if (root._pendingProfileId.length > 0)
-                    Ipc.EventBus.monitorProfileApplied(root._pendingProfileId)
                 root._pendingProfileId = ""
             } else {
                 console.warn("MonitorManager: commit failed —", errorMessage)

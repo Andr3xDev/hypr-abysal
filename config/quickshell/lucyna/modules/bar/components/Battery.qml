@@ -8,25 +8,27 @@ import "../../../core/services" as Services
 */
 RowLayout {
     id: root
-    spacing: Theme.ThemeManager.spacing.xs
+    spacing: Theme.Tokens.space.xs
+
+    readonly property color _statusColor: Services.BatteryService.isCritical()
+        ? Theme.Tokens.color.danger
+        : Theme.Tokens.color.textPrimary
 
     // Battery icon
     Text {
         Layout.alignment: Qt.AlignVCenter
         visible: Services.BatteryService.battery !== null
         text: Services.BatteryService.getBatteryIcon()
-        color: Services.BatteryService.isCritical()
-            ? Theme.ThemeManager.colors.status.error
-            : Theme.ThemeManager.colors.on.surface
-        font.pixelSize: Theme.ThemeManager.typography.iconSize
-        font.family: Theme.ThemeManager.typography.family.icons
+        color: root._statusColor
+        font.pixelSize: Theme.Tokens.text.icon
+        font.family: Theme.Tokens.text.iconFont
 
         // Animation for critical battery
-        SequentialAnimation on opacity {
+        SequentialAnimation on color {
             running: Services.BatteryService.isCritical()
             loops: Animation.Infinite
-            NumberAnimation { from: 1.0; to: 0.3; duration: 800 }
-            NumberAnimation { from: 0.3; to: 1.0; duration: 800 }
+            ColorAnimation { from: Theme.Tokens.color.danger; to: Theme.Tokens.color.textMuted; duration: 800 }
+            ColorAnimation { from: Theme.Tokens.color.textMuted; to: Theme.Tokens.color.danger; duration: 800 }
         }
     }
 
@@ -36,10 +38,8 @@ RowLayout {
         text: Services.BatteryService.battery
             ? Math.round(Services.BatteryService.batteryLevel) + "%"
             : "N/A"
-        color: Services.BatteryService.isCritical()
-            ? Theme.ThemeManager.colors.status.error
-            : Theme.ThemeManager.colors.on.surface
-        font.pixelSize: Theme.ThemeManager.typography.size.sm
+        color: root._statusColor
+        font.pixelSize: Theme.Tokens.text.sm
         font.bold: Services.BatteryService.isCritical()
     }
 }

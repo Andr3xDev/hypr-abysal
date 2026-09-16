@@ -21,6 +21,13 @@
       "model": "LG HD",
       "alias": "secondary",
       "tags": []
+    },
+    {
+      "serial": "XZ8S4HA017211",
+      "make": "AOC",
+      "model": "24B35H3",
+      "alias": "24B35H3",
+      "tags": []
     }
   ]
 }

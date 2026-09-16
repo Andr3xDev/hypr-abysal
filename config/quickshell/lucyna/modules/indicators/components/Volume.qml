@@ -37,14 +37,14 @@ Scope {
 
             implicitWidth: 400
             implicitHeight: 50
-            color: "transparent"
+            color: "transparent" // layer-shell root — must not paint, real panel bg is drawn inside
 
             mask: Region {}
 
             Rectangle {
                 anchors.fill: parent
                 radius: height / 2
-                color: Theme.ThemeManager.alpha(Theme.ThemeManager.colors.surface.overlay, 0.5)
+                color: Theme.Tokens.color.bgElevated
 
                 RowLayout {
                     anchors {
@@ -59,16 +59,16 @@ Scope {
                         text: (Pipewire.defaultAudioSink?.audio?.muted ?? false) ? "󰖁"
                             : (root.pipelineVolume > 0.5)                        ? "󰕾"
                             :                                                       "󰖀"
-                        color: Theme.ThemeManager.colors.on.surface
-                        font.pixelSize: Theme.ThemeManager.typography.bigIconSize
-                        font.family: Theme.ThemeManager.typography.family.icons
+                        color: Theme.Tokens.color.textPrimary
+                        font.pixelSize: Theme.Tokens.text.iconLg
+                        font.family: Theme.Tokens.text.iconFont
                     }
 
                     Rectangle {
                         Layout.fillWidth: true
                         implicitHeight: 10
                         radius: 20
-                        color: Theme.ThemeManager.alpha(Theme.ThemeManager.colors.on.surface, 0.31)
+                        color: Theme.Tokens.color.accentSurface
 
                         Rectangle {
                             anchors {
@@ -78,6 +78,7 @@ Scope {
                             }
                             implicitWidth: parent.width * (Pipewire.defaultAudioSink?.audio?.volume ?? 0)
                             radius: parent.radius
+                            color: Theme.Tokens.color.accent
                         }
                     }
                 }

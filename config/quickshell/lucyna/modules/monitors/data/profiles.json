@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastAppliedId": "6fe88cf4-3989-4ff4-9bfd-2eeb8ba9a039",
+  "lastAppliedId": "5f0eff0e-7292-4066-a9a0-28ab83aeae06",
   "profiles": [
     {
       "id": "20aec711-82b4-4b05-872e-ef1c750d17e4",
@@ -26,15 +26,15 @@
       ]
     },
     {
-      "id": "6fe88cf4-3989-4ff4-9bfd-2eeb8ba9a039",
-      "name": "desktop",
+      "id": "5f0eff0e-7292-4066-a9a0-28ab83aeae06",
+      "name": "temp",
       "description": "",
       "autoApply": false,
       "trigger": {
         "require": [
           "LG Display|0x0742",
-          "HCNR300296",
-          "0x01010101"
+          "XZ8S4HA017211",
+          "HCNR300296"
         ],
         "absent": []
       },
@@ -42,9 +42,19 @@
         {
           "identitySerial": "LG Display|0x0742",
           "alias": "laptop",
-          "mode": "1920x1080@144",
-          "position": "-1640x-153",
+          "mode": "1920x1080@144.002",
+          "position": "-1640x-320",
           "scale": 1.25,
+          "transform": 0,
+          "enabled": true,
+          "cm": "srgb"
+        },
+        {
+          "identitySerial": "XZ8S4HA017211",
+          "alias": "24B35H3",
+          "mode": "1920x1080@100",
+          "position": "-104x-198",
+          "scale": 1,
           "transform": 0,
           "enabled": true,
           "cm": "srgb"
@@ -53,17 +63,7 @@
           "identitySerial": "HCNR300296",
           "alias": "main",
           "mode": "1920x1080@74.973",
-          "position": "-104x-120",
-          "scale": 1,
-          "transform": 0,
-          "enabled": true,
-          "cm": "srgb"
-        },
-        {
-          "identitySerial": "0x01010101",
-          "alias": "secondary",
-          "mode": "1280x720@60",
-          "position": "1816x143",
+          "position": "1816x-165",
           "scale": 1,
           "transform": 0,
           "enabled": true,

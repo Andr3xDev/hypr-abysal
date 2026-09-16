@@ -28,27 +28,24 @@ hl.monitor({
 	mode         = "1920x1080@144",
 	position     = "auto-left",
 	scale        = 1.25,
-	bitdepth     = 10,
+	bitdepth     = 8,
 	cm           = "srgb",
-	supports_hdr = 0,
 })
 
 hl.monitor({
 	output       = "HDMI-A-1",
-	mode         = "1280x720@60",
+	mode         = "1920x1080@75",
 	position     = "auto-right",
 	scale        = 1.0,
-	bitdepth     = 10,
+	bitdepth     = 8,
 	cm           = "srgb",
-	supports_hdr = 0,
 })
 
 hl.monitor({
 	output       = "DP-1",
-	mode         = "1920x1080@75",
+	mode         = "1920x1080@100",
 	position     = "auto",
 	scale        = 1.0,
-	bitdepth     = 10,
+	bitdepth     = 8,
 	cm           = "srgb",
-	supports_hdr = 0,
 })

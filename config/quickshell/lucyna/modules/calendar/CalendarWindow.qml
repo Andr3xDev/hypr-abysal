@@ -21,7 +21,7 @@ PanelWindow {
     readonly property int _barOffset: 40
 
     visible: CalendarState.isVisible
-    color: "transparent"
+    color: "transparent" // layer-shell root — must not paint, real panel bg is the Rectangle below
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.namespace: "calendar"
     WlrLayershell.keyboardFocus: root.visible ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
@@ -76,16 +76,16 @@ PanelWindow {
         z: 1
         opacity: root.visible ? 1 : 0
         scale: root.visible ? 1 : 0.97
-        radius: Theme.ThemeManager.radius.md
+        radius: Theme.Tokens.radius.md
         border.width: 1
-        border.color: Theme.ThemeManager.colors.borderEmphasis
-        color: Theme.ThemeManager.alpha(Theme.ThemeManager.colors.surface.primary, 0.96)
+        border.color: Theme.Tokens.color.borderStrong
+        color: Theme.Tokens.color.bg
 
         Behavior on opacity {
-            NumberAnimation { duration: Theme.ThemeManager.motion.duration.fast; easing.type: Theme.ThemeManager.motion.easing.standard }
+            NumberAnimation { duration: Theme.Tokens.motion.fast; easing.type: Theme.Tokens.motion.ease }
         }
         Behavior on scale {
-            NumberAnimation { duration: Theme.ThemeManager.motion.duration.fast; easing.type: Theme.ThemeManager.motion.easing.standard }
+            NumberAnimation { duration: Theme.Tokens.motion.fast; easing.type: Theme.Tokens.motion.ease }
         }
 
         MouseArea { anchors.fill: parent }

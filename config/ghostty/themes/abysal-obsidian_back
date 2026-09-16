@@ -1,0 +1,44 @@
+# ---------------------------------------------------------------------------
+# Abysal Obsidian
+# Ghostty terminal color scheme for the Abysal Obsidian theme
+# ---------------------------------------------------------------------------
+
+# General stuff
+background = #0E161A
+foreground = #E3E9EB
+cursor-color = #2DD4BF
+cursor-text = #0E161A
+selection-background = #17393B
+selection-foreground = #E3E9EB
+
+# Black / Dark Gray (Borders and Comments)
+palette = 0 = #1D2C34
+palette = 8 = #5B6E72
+
+# Red (Errors and Git Deletions)
+palette = 1 = #FF6369
+palette = 9 = #FF8352
+
+# Green (Turquoise hack)
+palette = 2 = #2DD4BF
+palette = 10 = #14B8A6
+
+# Yellow (Sand - Warnings and secondary attributes)
+palette = 3 = #E9D568
+palette = 4 = #E9D568
+palette = 11 = #E9D568
+
+# Blue (Orange - Folders/Directories)
+palette = 12 = #D9973A
+
+# Magenta (Turquoise - Keywords and syntax control)
+palette = 5 = #2DD4BF
+palette = 13 = #14B8A6
+
+# Cyan (Real blue — symlinks/special files)
+palette = 6 = #6C93E8
+palette = 14 = #8FADF2
+
+# White (Light Gray - Secondary and highlighted text)
+palette = 7 = #7A8B8E
+palette = 15 = #E3E9EB

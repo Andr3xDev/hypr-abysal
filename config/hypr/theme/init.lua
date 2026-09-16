@@ -19,4 +19,4 @@ if ok and loader then
 end
 
 -- Load and return the selected theme module
-return require("theme." .. theme_name)
+return require("theme.themes." .. theme_name .. "." .. theme_name)

@@ -15,18 +15,18 @@ PanelWindow {
         top: true
         right: true
     }
-    margins { top: 4; left: 6; right: 6 }
+    margins { top: 4; left: 40; right: 40}
     implicitHeight: 32
-    color: "transparent"
+    color: "transparent" // layer-shell root — must not paint, real bar bg is the Rectangle below
 
     property var modelData
     screen: modelData
 
     Rectangle {
         anchors.fill: parent
-        border.color: Theme.ThemeManager.alpha(Theme.ThemeManager.colors.borderSubtle, 0.8)
-        color: Theme.ThemeManager.alpha(Theme.ThemeManager.colors.surface.primary, Theme.ThemeManager.colors.barOpacity)
-        radius: Theme.ThemeManager.radius.md
+        border.color: Theme.Tokens.color.border
+        color: Theme.Tokens.color.bg
+        radius: Theme.Tokens.radius.md
         border.width: 2
     }
 
@@ -38,14 +38,14 @@ PanelWindow {
             top: parent.top
             bottom: parent.bottom
         }
-        width: Math.max(100, leftContent.implicitWidth + Theme.ThemeManager.spacing.xxl)
+        width: Math.max(100, leftContent.implicitWidth + Theme.Tokens.space.xxl)
 
         RowLayout {
             id: leftContent
             anchors.fill: parent
-            spacing: Theme.ThemeManager.spacing.sm
+            spacing: Theme.Tokens.space.sm
 
-            Item { Layout.preferredWidth: Theme.ThemeManager.spacing.xs }
+            Item { Layout.preferredWidth: Theme.Tokens.space.xs }
 
             ArchLogo {}
 
@@ -54,21 +54,15 @@ PanelWindow {
                 Layout.preferredWidth: 1
                 Layout.preferredHeight: parent.height * 0.7
                 Layout.alignment: Qt.AlignVCenter
-                color: Theme.ThemeManager.colors.on.surfaceMuted
-                radius: Theme.ThemeManager.radius.full
+                color: Theme.Tokens.color.borderMuted
+                radius: Theme.Tokens.radius.full
             }
 
-            Item { Layout.preferredWidth: Theme.ThemeManager.spacing.sm }
+            Item { Layout.preferredWidth: Theme.Tokens.space.sm }
 
-            Workspaces {
-                screen: bar.screen
-            }
+            Clock {}
 
-            // ponytail: fillWidth claims leftSection's reserved xxl surplus deterministically —
-            // without it, Qt's RowLayout redistributes unclaimed surplus proportionally across
-            // ALL cells (incl. ArchLogo/separator before Workspaces), shifting them a few px
-            // whenever Workspaces' preferred width changes (new workspace pill appears)
-            Item { Layout.preferredWidth: Theme.ThemeManager.spacing.sm; Layout.fillWidth: true }
+            Item { Layout.preferredWidth: Theme.Tokens.space.sm; Layout.fillWidth: true }
         }
     }
 
@@ -80,14 +74,16 @@ PanelWindow {
             top: parent.top
             bottom: parent.bottom
         }
-        width: clockContent.implicitWidth + Theme.ThemeManager.spacing.xxl
+        width: clockContent.implicitWidth + Theme.Tokens.space.xxl
 
         RowLayout {
             id: clockContent
             anchors.centerIn: parent
             height: parent.height
 
-            Clock {}
+            Workspaces {
+                screen: bar.screen
+            }
         }
     }
 
@@ -99,14 +95,14 @@ PanelWindow {
             top: parent.top
             bottom: parent.bottom
         }
-        width: rightContent.implicitWidth + 2  // ponytail: fine-tuned pixel offset, not layout spacing — distinct from left/center sections' spacing.xxl padding
+        width: rightContent.implicitWidth + 2  // pixel offset, not layout spacing
 
         RowLayout {
             id: rightContent
-            anchors { fill: parent; rightMargin: 1 }  // ponytail: fine-tuned pixel offset, same reasoning as rightSection's +2 above
-            spacing: Theme.ThemeManager.spacing.sm
+            anchors { fill: parent; rightMargin: 1 }  // pixel offset, pairs with rightSection's +2
+            spacing: Theme.Tokens.space.sm
 
-            Item { Layout.preferredWidth: Theme.ThemeManager.spacing.xs }
+            Item { Layout.preferredWidth: Theme.Tokens.space.xs }
 
             PowerProfile {
                 id: powerProfile
@@ -118,7 +114,7 @@ PanelWindow {
                 icon: "󱐋"
             }
 
-            Item { Layout.preferredWidth: Theme.ThemeManager.spacing.xs }
+            Item { Layout.preferredWidth: Theme.Tokens.space.xs }
 
             SystemControls {
                 id: systemControls
@@ -130,7 +126,7 @@ PanelWindow {
                 icon: "󰒓"
             }
 
-            Item { Layout.preferredWidth: Theme.ThemeManager.spacing.xs }
+            Item { Layout.preferredWidth: Theme.Tokens.space.xs }
 
             SystemTemperatures {
                 id: systemTemperatures
@@ -142,7 +138,7 @@ PanelWindow {
                 icon: "󰔏"
             }
 
-            Item { Layout.preferredWidth: Theme.ThemeManager.spacing.xs }
+            Item { Layout.preferredWidth: Theme.Tokens.space.xs }
 
             SystemMetrics {
                 id: systemMetrics
@@ -154,18 +150,14 @@ PanelWindow {
                 icon: "󰕮"
             }
 
-            Item { Layout.preferredWidth: Theme.ThemeManager.spacing.xs }
+            Item { Layout.preferredWidth: Theme.Tokens.space.xs }
 
             Battery {
                 id: batteryWidget
             }
 
-            // ponytail: fillWidth claims rightContent's unclaimed 1px surplus
-            // (rightSection.width = implicitWidth + 2, rightMargin 1 -> rightContent.width
-            // = implicitWidth + 1) deterministically — without it, Qt's RowLayout redistributes
-            // that surplus proportionally across ALL cells (incl. ones after an expanding
-            // ExpandableRow that should net to zero shift), same mechanism as leftContent (obs #127)
-            Item { Layout.preferredWidth: Theme.ThemeManager.spacing.sm; Layout.fillWidth: true }
+            // fillWidth absorbs the 1px surplus so RowLayout doesn't spread it across cells
+            Item { Layout.preferredWidth: Theme.Tokens.space.sm; Layout.fillWidth: true }
         }
     }
 }

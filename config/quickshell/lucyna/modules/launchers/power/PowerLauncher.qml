@@ -74,7 +74,7 @@ PanelWindow {
     }
 
     // ── Visibility ───────────────────────────────────────
-    color: "transparent"
+    color: "transparent" // layer-shell root — must not paint, real card bg is the Rectangle below
     visible: false
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.namespace: "powerLauncher"
@@ -117,7 +117,6 @@ PanelWindow {
     // ── Background overlay ───────────────────────────────
     DarkOverlay {
         visible: root.visible
-        overlayOpacity: 0.5
         onClicked: root.close()
     }
 
@@ -128,10 +127,10 @@ PanelWindow {
         width: root.cardW
         height: root.cardH
         anchors.centerIn: parent
-        color: Theme.ThemeManager.colors.surface.primary
-        radius: Theme.ThemeManager.radius.md
+        color: Theme.Tokens.color.bg
+        radius: Theme.Tokens.radius.md
         border.width: 1
-        border.color: Theme.ThemeManager.colors.border
+        border.color: Theme.Tokens.color.border
         opacity: root.visible ? 1 : 0
         scale: root.visible ? 1 : 0.97
         focusPolicy: Qt.StrongFocus
@@ -149,12 +148,12 @@ PanelWindow {
 
         Column {
             anchors.centerIn: parent
-            spacing: Theme.ThemeManager.spacing.md
+            spacing: Theme.Tokens.space.md
 
             // Action buttons
             Row {
                 anchors.horizontalCenter: parent.horizontalCenter
-                spacing: Theme.ThemeManager.spacing.md
+                spacing: Theme.Tokens.space.md
 
                 Repeater {
                     model: root.actions
@@ -166,21 +165,21 @@ PanelWindow {
 
                         width: root.actionSize
                         height: root.actionSize
-                        radius: Theme.ThemeManager.radius.lg
+                        radius: Theme.Tokens.radius.lg
                         color: isConfirming
-                            ? Theme.ThemeManager.alpha(Theme.ThemeManager.colors.accent, 0.2)
-                            : Theme.ThemeManager.colors.surface.secondary
+                            ? Theme.Tokens.color.accentSurface
+                            : Theme.Tokens.color.bgElevated
                         border.width: isSelected ? 2 : 1
                         border.color: isHighlighted
-                            ? Theme.ThemeManager.colors.accent
-                            : Theme.ThemeManager.colors.border
+                            ? Theme.Tokens.color.accent
+                            : Theme.Tokens.color.border
 
                         Text {
                             anchors.centerIn: parent
                             text: modelData.icon
-                            color: Theme.ThemeManager.colors.on.surface
-                            font.pixelSize: Theme.ThemeManager.typography.bigIconSize
-                            font.family: Theme.ThemeManager.typography.family.icons
+                            color: Theme.Tokens.color.textPrimary
+                            font.pixelSize: Theme.Tokens.text.iconLg
+                            font.family: Theme.Tokens.text.iconFont
                         }
 
                         MouseArea {
@@ -192,8 +191,8 @@ PanelWindow {
                             onClicked: root.trigger(index)
                         }
 
-                        Behavior on color        { ColorAnimation { duration: Theme.ThemeManager.motion.duration.fast } }
-                        Behavior on border.color { ColorAnimation { duration: Theme.ThemeManager.motion.duration.fast } }
+                        Behavior on color        { ColorAnimation { duration: Theme.Tokens.motion.fast } }
+                        Behavior on border.color { ColorAnimation { duration: Theme.Tokens.motion.fast } }
                     }
                 }
             }
@@ -205,16 +204,16 @@ PanelWindow {
                     ? "Press again to " + root.actions[root.confirmIndex].label.toLowerCase()
                     : (root.uptimeText ? "󱑎  Uptime: " + root.uptimeText : " ")
                 color: root.confirmIndex !== -1
-                    ? Theme.ThemeManager.colors.accent
-                    : Theme.ThemeManager.colors.on.surface
-                font.pixelSize: Theme.ThemeManager.typography.size.sm
+                    ? Theme.Tokens.color.accent
+                    : Theme.Tokens.color.textPrimary
+                font.pixelSize: Theme.Tokens.text.sm
                 font.letterSpacing: 0.4
 
-                Behavior on color { ColorAnimation { duration: Theme.ThemeManager.motion.duration.fast } }
+                Behavior on color { ColorAnimation { duration: Theme.Tokens.motion.fast } }
             }
         }
 
-        Behavior on opacity { NumberAnimation { duration: Theme.ThemeManager.motion.duration.fast; easing.type: Theme.ThemeManager.motion.easing.standard } }
-        Behavior on scale   { NumberAnimation { duration: Theme.ThemeManager.motion.duration.fast; easing.type: Theme.ThemeManager.motion.easing.standard } }
+        Behavior on opacity { NumberAnimation { duration: Theme.Tokens.motion.fast; easing.type: Theme.Tokens.motion.ease } }
+        Behavior on scale   { NumberAnimation { duration: Theme.Tokens.motion.fast; easing.type: Theme.Tokens.motion.ease } }
     }
 }

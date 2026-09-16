@@ -44,7 +44,7 @@ Item {
             right:       parent.right;   rightMargin: _mg
         }
         height: 1
-        color:  Theme.ThemeManager.colors.highlight.subtle
+        color:  Theme.Tokens.color.bgElevated
     }
 
     // ── Save area — always pinned to bottom ───────────────
@@ -80,16 +80,16 @@ Item {
                 width:               parent.width - confirmSaveBtn.width - parent.spacing
                 height:              32
                 placeholderText:     "Profile name…"
-                placeholderTextColor: Theme.ThemeManager.colors.on.surfaceMuted
-                color:               Theme.ThemeManager.colors.on.surface
-                font.pixelSize:      Theme.ThemeManager.typography.size.md
+                placeholderTextColor: Theme.Tokens.color.textMuted
+                color:               Theme.Tokens.color.textPrimary
+                font.pixelSize:      Theme.Tokens.text.md
                 background: Rectangle {
-                    color:        Theme.ThemeManager.colors.surface.secondary
-                    radius:       Theme.ThemeManager.radius.lg
+                    color:        Theme.Tokens.color.bgElevated
+                    radius:       Theme.Tokens.radius.lg
                     border.width: 1
                     border.color: nameField.activeFocus
-                                      ? Theme.ThemeManager.colors.accent
-                                      : Theme.ThemeManager.colors.border
+                                      ? Theme.Tokens.color.accent
+                                      : Theme.Tokens.color.border
                 }
                 Keys.onEscapePressed: { saveRow.saving = false; nameField.clear() }
                 Keys.onReturnPressed:  confirmSave()
@@ -116,7 +116,7 @@ Item {
         }
         clip:    true
         model:   root.profiles
-        spacing: Theme.ThemeManager.spacing.xs
+        spacing: Theme.Tokens.space.xs
 
         ScrollIndicator.vertical: ScrollIndicator { }
 
@@ -128,12 +128,12 @@ Item {
 
             width:  profileList.width
             height: 40
-            radius: Theme.ThemeManager.radius.lg
+            radius: Theme.Tokens.radius.lg
             color:  isActive
-                        ? Theme.ThemeManager.colors.accentMuted
+                        ? Theme.Tokens.color.accentSurface
                         : rowArea.containsMouse
-                            ? Theme.ThemeManager.colors.surface.secondary
-                            : "transparent"
+                            ? Theme.Tokens.color.bgElevated
+                            : Theme.Tokens.color.bg
 
             // Match indicator — bottom line
             Rectangle {
@@ -143,9 +143,8 @@ Item {
                     right: parent.right; rightMargin: 6
                     bottom: parent.bottom
                 }
-                height:  1
-                color:   Theme.ThemeManager.colors.accent
-                opacity: 0.5
+                height: 1
+                color:  Theme.Tokens.color.borderStrong
             }
 
             QsText {
@@ -166,18 +165,18 @@ Item {
                     right:          parent.right; rightMargin: 8
                     verticalCenter: parent.verticalCenter
                 }
-                spacing: Theme.ThemeManager.spacing.xs
+                spacing: Theme.Tokens.space.xs
 
                 QsButton {
                     label:      "Apply"
-                    labelColor: Theme.ThemeManager.colors.on.surfaceMuted
+                    labelColor: Theme.Tokens.color.textMuted
                     onClicked:  root.profileSelected(profile.id)
                 }
 
                 QsButton {
                     glyph:      "✕"
                     width:      24
-                    labelColor: Theme.ThemeManager.colors.on.surfaceMuted
+                    labelColor: Theme.Tokens.color.textMuted
                     onClicked:  root.deleteRequested(profile.id)
                 }
             }

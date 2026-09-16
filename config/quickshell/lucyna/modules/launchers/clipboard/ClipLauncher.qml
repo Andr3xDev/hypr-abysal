@@ -17,9 +17,9 @@ PanelWindow {
 
     // Layout constants
     readonly property int cardW:   460
-    readonly property int rowH:    48
-    readonly property int searchH: 44
-    readonly property int pad:     12
+    readonly property int rowH:    Theme.Tokens.comp.clip.rowH
+    readonly property int searchH: Theme.Tokens.comp.clip.searchH
+    readonly property int pad:     Theme.Tokens.comp.clip.pad
     readonly property int maxRows: 8
     readonly property int minRows: 3
     readonly property int listH:   Math.max(rowH * minRows, Math.min((ClipState.filtered?.count ?? 0) * rowH, rowH * maxRows))
@@ -39,7 +39,7 @@ PanelWindow {
     }
 
     // Visibility
-    color: "transparent"
+    color: "transparent" // layer-shell root — must not paint, real card bg is the Rectangle below
     visible: false
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.namespace: "clipLauncher"
@@ -60,7 +60,6 @@ PanelWindow {
     // Background overlay
     DarkOverlay {
         visible: root.visible
-        overlayOpacity: 0.5
         onClicked: root.close()
     }
 
@@ -71,10 +70,10 @@ PanelWindow {
         width:  root.cardW
         height: root.cardH
         anchors.centerIn: parent
-        color:        Theme.ThemeManager.colors.surface.primary
-        radius:       Theme.ThemeManager.radius.md
+        color:        Theme.Tokens.color.bg
+        radius:       Theme.Tokens.radius.md
         border.width: 1
-        border.color: Theme.ThemeManager.colors.border
+        border.color: Theme.Tokens.color.border
         opacity:      root.visible ? 1 : 0
         scale:        root.visible ? 1 : 0.97
 
@@ -90,8 +89,8 @@ PanelWindow {
 
             Text {
                 text:                "\"I'm no hero. Never was, never will be\""
-                color:               Theme.ThemeManager.colors.on.surfaceMuted
-                font.pixelSize:      Theme.ThemeManager.typography.size.md
+                color:               Theme.Tokens.color.textMuted
+                font.pixelSize:      Theme.Tokens.text.md
                 font.italic:         true
                 horizontalAlignment: Text.AlignHCenter
                 width:               parent.width
@@ -99,15 +98,15 @@ PanelWindow {
             }
             Text {
                 text:                "Solid Snake"
-                color:               Theme.ThemeManager.colors.on.surfaceMuted
-                font.pixelSize:      Theme.ThemeManager.typography.size.sm
+                color:               Theme.Tokens.color.textMuted
+                font.pixelSize:      Theme.Tokens.text.sm
                 horizontalAlignment: Text.AlignHCenter
                 width:               parent.width
             }
             Text {
                 text:                "Metal Gear Solid 4"
-                color:               Theme.ThemeManager.colors.on.surfaceMuted
-                font.pixelSize:      Theme.ThemeManager.typography.size.sm
+                color:               Theme.Tokens.color.textMuted
+                font.pixelSize:      Theme.Tokens.text.sm
                 font.italic:         true
                 horizontalAlignment: Text.AlignHCenter
                 width:               parent.width
@@ -138,8 +137,8 @@ PanelWindow {
             }
         }
 
-        Behavior on opacity { NumberAnimation { duration: Theme.ThemeManager.motion.duration.fast; easing.type: Theme.ThemeManager.motion.easing.standard } }
-        Behavior on scale   { NumberAnimation { duration: Theme.ThemeManager.motion.duration.fast; easing.type: Theme.ThemeManager.motion.easing.standard } }
+        Behavior on opacity { NumberAnimation { duration: Theme.Tokens.motion.fast; easing.type: Theme.Tokens.motion.ease } }
+        Behavior on scale   { NumberAnimation { duration: Theme.Tokens.motion.fast; easing.type: Theme.Tokens.motion.ease } }
     }
 
     Connections {

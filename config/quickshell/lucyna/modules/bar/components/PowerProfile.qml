@@ -12,19 +12,19 @@ ExpandableRow {
 
     // Profile color mapping
     readonly property var profileColors: ({
-        "power-saver": Theme.ThemeManager.colors.detailSecondary,
-        "balanced": Theme.ThemeManager.colors.status.warning,
-        "performance": Theme.ThemeManager.colors.status.error
+        "power-saver": Theme.Tokens.color.info,
+        "balanced": Theme.Tokens.color.warning,
+        "performance": Theme.Tokens.color.danger
     })
     
     RowLayout {
         id: profileRow
         anchors.centerIn: parent
-        spacing: 15  // ponytail: intentionally a raw literal, mirrors the known-good reference implementation exactly — do not migrate to a spacing token, a prior token migration here caused a real layout-shift bug (session-confirmed)
+        spacing: 15  // raw literal: a spacing token here caused a layout shift
         opacity: root.expanded ? 1 : 0
 
         Behavior on opacity {
-            NumberAnimation { duration: Theme.ThemeManager.motion.duration.standard }
+            NumberAnimation { duration: Theme.Tokens.motion.standard }
         }
 
         Repeater {
@@ -35,7 +35,7 @@ ExpandableRow {
                 Layout.preferredHeight: buttonContent.implicitHeight
                 
                 property bool isActive: modelData.id === Services.PowerService.currentProfile
-                property color profileColor: root.profileColors[modelData.id] || Theme.ThemeManager.colors.on.surface
+                property color profileColor: root.profileColors[modelData.id] || Theme.Tokens.color.textPrimary
                 
                 ColumnLayout {
                     id: buttonContent
@@ -47,15 +47,15 @@ ExpandableRow {
                         text: modelData.icon
                         color: profileButton.isActive
                             ? profileButton.profileColor
-                            : Theme.ThemeManager.colors.on.surface
-                        font.pixelSize: Theme.ThemeManager.typography.iconSize
-                        font.family: Theme.ThemeManager.typography.family.icons
+                            : Theme.Tokens.color.textPrimary
+                        font.pixelSize: Theme.Tokens.text.icon
+                        font.family: Theme.Tokens.text.iconFont
                         Layout.alignment: Qt.AlignHCenter
                         
                         Behavior on color {
                             ColorAnimation {
-                                duration: Theme.ThemeManager.motion.duration.standard
-                                easing.type: Theme.ThemeManager.motion.easing.standard
+                                duration: Theme.Tokens.motion.standard
+                                easing.type: Theme.Tokens.motion.ease
                             }
                         }
                     }
@@ -71,8 +71,8 @@ ExpandableRow {
 
                         Behavior on opacity {
                             NumberAnimation {
-                                duration: Theme.ThemeManager.motion.duration.standard
-                                easing.type: Theme.ThemeManager.motion.easing.standard
+                                duration: Theme.Tokens.motion.standard
+                                easing.type: Theme.Tokens.motion.ease
                             }
                         }
                     }

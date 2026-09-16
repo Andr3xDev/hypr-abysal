@@ -17,11 +17,13 @@ case "${THEME_NAME}" in
         cat > "${THEME_FILE}" << 'EOF'
 [flavor]
 dark = "abysal-obsidian"
+light = "abysal-obsidian"
 EOF
         ;;
     abysal-marble)
         cat > "${THEME_FILE}" << 'EOF'
 [flavor]
+dark = "abysal-marble"
 light = "abysal-marble"
 EOF
         ;;

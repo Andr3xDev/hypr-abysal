@@ -57,11 +57,4 @@ Singleton {
         _profileSetter.running = true
         currentProfile = profile
     }
-
-    /*!
-        Get profile data by id
-    */
-    function getProfile(profileId) {
-        return profiles.find(p => p.id === profileId)
-    }
 }

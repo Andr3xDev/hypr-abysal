@@ -15,11 +15,11 @@ ExpandableRow {
     RowLayout {
         id: controlsRow
         anchors.centerIn: parent
-        spacing: Theme.ThemeManager.spacing.xs
+        spacing: Theme.Tokens.space.xs
         opacity: root.expanded ? 1 : 0
         
         Behavior on opacity {
-            NumberAnimation { duration: Theme.ThemeManager.motion.duration.standard }
+            NumberAnimation { duration: Theme.Tokens.motion.standard }
         }
         
         // Network
@@ -34,10 +34,10 @@ ExpandableRow {
                       (Services.NetworkService.wifiEnabled ? "󰖩" : "󰖪")
                 color: (Services.NetworkService.ethernetEnabled ||
                         Services.NetworkService.wifiEnabled)
-                    ? Theme.ThemeManager.colors.accent
-                    : Theme.ThemeManager.colors.status.error
-                font.pixelSize: Theme.ThemeManager.typography.iconSize
-                font.family: Theme.ThemeManager.typography.family.icons
+                    ? Theme.Tokens.hue.aquamarine.fill
+                    : Theme.Tokens.color.danger
+                font.pixelSize: Theme.Tokens.text.icon
+                font.family: Theme.Tokens.text.iconFont
             }
 
             HoverScale {
@@ -58,10 +58,10 @@ ExpandableRow {
                 anchors.centerIn: parent
                 text: Services.BluetoothService.enabled ? "󰂯" : "󰂲"
                 color: Services.BluetoothService.enabled
-                    ? Theme.ThemeManager.colors.accent
-                    : Theme.ThemeManager.colors.status.error
-                font.pixelSize: Theme.ThemeManager.typography.iconSize
-                font.family: Theme.ThemeManager.typography.family.icons
+                    ? Theme.Tokens.hue.aquamarine.fill
+                    : Theme.Tokens.color.danger
+                font.pixelSize: Theme.Tokens.text.icon
+                font.family: Theme.Tokens.text.iconFont
             }
 
             HoverScale {
@@ -80,23 +80,23 @@ ExpandableRow {
             RowLayout {
                 id: audioRow
                 anchors.centerIn: parent
-                spacing: Theme.ThemeManager.spacing.xs
+                spacing: Theme.Tokens.space.xs
 
                 Text {
                     id: aIconText
                     text: Services.AudioService.muted ? " 󰖁" :
                           Services.AudioService.volume > 50 ? " 󰕾" : " 󰖀"
                     color: Services.AudioService.muted
-                        ? Theme.ThemeManager.colors.status.error
-                        : Theme.ThemeManager.colors.accent
-                    font.pixelSize: Theme.ThemeManager.typography.iconSize
-                    font.family: Theme.ThemeManager.typography.family.icons
+                        ? Theme.Tokens.color.danger
+                        : Theme.Tokens.hue.aquamarine.fill
+                    font.pixelSize: Theme.Tokens.text.icon
+                    font.family: Theme.Tokens.text.iconFont
                 }
 
                 Text {
                     text: `${Services.AudioService.volume}%`
-                    color: Theme.ThemeManager.colors.on.surface
-                    font.pixelSize: Theme.ThemeManager.typography.size.sm
+                    color: Theme.Tokens.color.textPrimary
+                    font.pixelSize: Theme.Tokens.text.sm
                 }
             }
 
