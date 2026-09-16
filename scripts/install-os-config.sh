@@ -31,7 +31,7 @@ for config in btop dunst fastfetch ghostty gtk-3.0 gtk-4.0 hypr kitty kotofetch 
 done
 
 # Copy starship.toml to home
-if [ -f "$CONFIG_SRC/starship.toml" ]; then
+if [ -f "$CONFIG_SRC/starship.toml" ] && [ "$(readlink -f "$CONFIG_SRC/starship.toml")" != "$(readlink -f "$HOME/.config/starship.toml" 2>/dev/null)" ]; then
     cp "$CONFIG_SRC/starship.toml" "$HOME/.config/starship.toml"
 fi
 
@@ -39,6 +39,15 @@ fi
 if [ -d "$CONFIG_SRC/wallpapers" ]; then
     print_message "Installing wallpapers..."
     cp -r "$CONFIG_SRC/wallpapers" "$HOME/.config/"
+fi
+
+# Copy fonts to ~/.local/share/fonts
+if [ -d "$CONFIG_SRC/fonts" ]; then
+    print_message "Installing fonts..."
+    mkdir -p "$HOME/.local/share/fonts"
+    cp -r "$CONFIG_SRC/fonts/." "$HOME/.local/share/fonts/"
+    fc-cache -f "$HOME/.local/share/fonts" >/dev/null
+    print_success "Fonts installed successfully"
 fi
 
 print_success "Dotfiles installed successfully"

@@ -12,6 +12,14 @@ if [ -z "$HYPRPHARCH_TEMP" ]; then
     trap "rm -rf '$HYPRPHARCH_TEMP'" EXIT INT TERM
 fi
 
+# Multilib repo (required for any lib32-* package)
+enable_multilib() {
+    if ! grep -q "^\[multilib\]" /etc/pacman.conf; then
+        sudo sed -i '/^#\[multilib\]$/{N;s/^#\[multilib\]\n#Include/[multilib]\nInclude/}' /etc/pacman.conf
+        sudo pacman -Sy --noconfirm
+    fi
+}
+
 # Intel drivers
 install_intel() {
     print_message "Installing Intel drivers..."
@@ -44,10 +52,6 @@ install_spotify() {
 
 # Steam
 install_steam() {
-    if ! grep -q "^\[multilib\]" /etc/pacman.conf; then
-        sudo sed -i '/^#\[multilib\]/,/^#Include/ s/^#//' /etc/pacman.conf
-        sudo pacman -Sy --noconfirm
-    fi
     sudo pacman -S --needed --noconfirm steam discord
 }
 
@@ -85,8 +89,13 @@ install_personal_fonts() {
 
     FONT_TMP="${HYPRPHARCH_TEMP:-$(mktemp -d)}/times-new-roman"
     mkdir -p "$FONT_TMP"
-    wget -q -O "$FONT_TMP/times32.exe" http://downloads.sourceforge.net/corefonts/times32.exe
+    wget -q -O "$FONT_TMP/times32.exe" https://downloads.sourceforge.net/project/corefonts/the%20fonts/final/times32.exe
     cabextract -q -d "$FONT_TMP" "$FONT_TMP/times32.exe"
+
+    if ! ls "$FONT_TMP"/*.ttf >/dev/null 2>&1; then
+        print_error "Font extraction failed - no .ttf files found, check download URL"
+        exit 1
+    fi
 
     mkdir -p "$HOME/.local/share/fonts"
     cp "$FONT_TMP"/*.ttf "$HOME/.local/share/fonts/"
@@ -105,6 +114,7 @@ main_installation() {
     print_message "════════════════════════════════════════"
     print_message "       GPU DRIVERS                      "
     print_message "════════════════════════════════════════"
+    enable_multilib
     install_intel
     install_nvidia
     install_linux_zen
